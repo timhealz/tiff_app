@@ -10,61 +10,52 @@
   background: var(--sc-green);
   border-bottom: 3px solid var(--gold);
   flex-shrink: 0;
-}
-
-.headerTop {
-  padding: 10px 16px 10px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  align-items: stretch;
+  padding: 0 10px 0 4px;
 }
 
-.headerTitle {
-  text-decoration: none;
+.headerLogo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 4px 12px 4px 4px;
 }
 
-.headerTitle h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  letter-spacing: 0.1em;
-  color: var(--sc-cream);
-  line-height: 1;
-}
-
-.headerTitle h1 span { color: var(--gold); }
-
-.headerSub {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.55rem;
-  color: rgba(242,237,227,0.55);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  margin-top: 3px;
+.headerLogo img {
+  height: 44px;
+  width: auto;
+  filter: invert(1) sepia(1) saturate(2);
+  mix-blend-mode: screen;
+  display: block;
 }
 
 .headerRight {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 /* ── Header tab nav ── */
 .tabs {
+  flex: 1;
   display: flex;
-  border-top: 1px solid rgba(184,150,46,0.2);
+  align-items: stretch;
 }
 
 .tab {
   flex: 1;
-  text-align: center;
-  padding: 10px 4px 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.56rem;
+  font-size: 0.52rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: rgba(242,237,227,0.4);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   transition: color 0.15s, border-color 0.15s;
 }
 
@@ -104,7 +95,7 @@
   50%       { opacity: 0.2; }
 }
 
-/* ── Hamburger button ── */
+/* ── Logo button ── */
 .hamburger {
   background: none;
   border: none;
@@ -113,12 +104,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
-  border-radius: 3px;
-  transition: color 0.15s;
+  padding: 0;
+  transition: opacity 0.15s;
 }
 
-.hamburger:hover { color: var(--gold); }
+.hamburger:hover { opacity: 0.75; }
+
+.hamburgerLogo {
+  height: 44px;
+  width: auto;
+  filter: invert(1) sepia(1) saturate(2);
+  mix-blend-mode: screen;
+  display: block;
+}
 
 /* ── Backdrop ── */
 .backdrop {

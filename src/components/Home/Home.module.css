@@ -29,6 +29,18 @@
   position: relative;
   overflow: hidden;
 }
+.heroWatermark {
+  position: absolute;
+  right: -24px;
+  bottom: 0;
+  height: 88%;
+  width: auto;
+  filter: invert(1);
+  mix-blend-mode: screen;
+  opacity: 0.09;
+  pointer-events: none;
+  user-select: none;
+}
 .countdownHero::before {
   content: '';
   position: absolute;
