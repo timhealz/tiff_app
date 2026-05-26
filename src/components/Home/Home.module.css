@@ -44,27 +44,9 @@
   bottom: 0; left: 0; right: 0; height: 3px;
   background: var(--gold);
 }
-.cdhEyebrow {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .56rem;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  color: rgba(242,237,227,.4);
-  margin-bottom: 10px;
-  position: relative; z-index: 1;
-}
-.cdhThe {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  letter-spacing: .35em;
-  color: var(--sc-cream);
-  line-height: 1;
-  margin-top: 10px;
-  position: relative; z-index: 1;
-}
 .cdhTitle {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   letter-spacing: .06em;
   color: var(--gold);
   line-height: .95;
@@ -79,11 +61,20 @@
   margin-top: 6px;
   position: relative; z-index: 1;
 }
+.cdhEyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .56rem;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: rgba(242,237,227,.4);
+  margin-top: 20px;
+  margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
 .countdownDigits {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
-  margin-top: 16px;
   position: relative; z-index: 1;
 }
 

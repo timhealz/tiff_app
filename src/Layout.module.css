@@ -74,69 +74,110 @@
   50%       { opacity: 0.2; }
 }
 
-.commBtn {
+/* ── Hamburger button ── */
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--sc-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 3px;
+  transition: color 0.15s;
+}
+
+.hamburger:hover { color: var(--gold); }
+
+/* ── Backdrop ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+}
+
+/* ── Slide-in drawer ── */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 260px;
+  background: var(--sc-green);
+  border-left: 2px solid var(--gold);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  padding-top: 64px;
+}
+
+.drawerOpen { transform: translateX(0); }
+
+.drawerNav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.drawerLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  text-decoration: none;
+  color: rgba(242,237,227,0.6);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border-left: 3px solid transparent;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.drawerLink:hover {
+  color: var(--sc-cream);
+  background: rgba(255,255,255,0.04);
+}
+
+.drawerLinkActive {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: rgba(184,150,46,0.08);
+}
+
+.drawerSignOut {
+  margin: 12px 16px 32px;
+  padding: 10px;
+  background: transparent;
+  color: rgba(242,237,227,0.35);
+  border: 1px solid rgba(242,237,227,0.15);
+  border-radius: 3px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 4px 10px;
-  background: transparent;
-  color: var(--gold);
-  border: 1px solid rgba(184,150,46,0.4);
-  border-radius: 3px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
 }
 
-.commBtn:hover { border-color: var(--gold); }
+.drawerSignOut:hover {
+  color: rgba(242,237,227,0.65);
+  border-color: rgba(242,237,227,0.35);
+}
 
 /* ── Main content ── */
 .main {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 80px; /* room for bottom nav */
 }
 
 .inner {
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
-}
-
-/* ── Bottom nav ── */
-.nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--sc-green);
-  border-top: 3px solid var(--gold);
-  display: flex;
-  z-index: 100;
-}
-
-.navTab {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 10px 4px 14px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: rgba(242,237,227,.3);
-  transition: color 0.15s;
-  min-height: 58px;
-}
-
-.navTab:hover { color: rgba(242,237,227,.65); }
-
-.navTabActive { color: var(--gold); }
-
-.navLabel {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.44rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }

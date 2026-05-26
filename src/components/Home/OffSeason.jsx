@@ -76,14 +76,13 @@ export default function OffSeason({ upcoming }) {
     <div>
       {/* Countdown hero */}
       <div className={s.countdownHero}>
-        <div className={s.cdhEyebrow}>Next Tiff in</div>
-        <div className={s.cdhThe}>The</div>
         <div className={s.cdhTitle}>
-          {(upcoming?.name ?? `${upcoming?.year ?? ''} Annual`).replace(/^the\s+/i, '')}
+          {(upcoming?.name ?? `${upcoming?.year ?? ''} Annual Tiff`).replace(/^the\s+/i, '')}
         </div>
         {upcoming?.location && (
           <div className={s.cdhLocation}>{upcoming.location}</div>
         )}
+        <div className={s.cdhEyebrow}>Next Tiff in</div>
         {countdown ? (
           <div className={s.countdownDigits}>
             <div className={s.cdUnit}><div className={s.cdNum}>{countdown.days}</div><div className={s.cdLbl}>Days</div></div>
