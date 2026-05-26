@@ -8,24 +8,25 @@
 /* ── Header ── */
 .header {
   background: var(--sc-green);
-  border-bottom: 3px solid var(--gold);
-  flex-shrink: 0;
+  border-bottom: 2px solid var(--gold);
   display: flex;
-  align-items: stretch;
-  padding: 0 10px 0 4px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 0 4px;
+  height: 52px;
+  flex-shrink: 0;
 }
 
 .headerLogo {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
-  padding: 4px 12px 4px 4px;
+  padding: 4px 8px;
 }
 
 .headerLogo img {
   height: 44px;
   width: auto;
-  filter: invert(1) sepia(1) saturate(2);
+  filter: invert(1);
   mix-blend-mode: screen;
   display: block;
 }
@@ -33,37 +34,7 @@
 .headerRight {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-/* ── Header tab nav ── */
-.tabs {
-  flex: 1;
-  display: flex;
-  align-items: stretch;
-}
-
-.tab {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.52rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(242,237,227,0.4);
-  text-decoration: none;
-  border-bottom: 3px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-.tab:hover { color: rgba(242,237,227,0.75); }
-
-.tabActive {
-  color: var(--sc-cream);
-  border-bottom-color: var(--gold);
+  gap: 12px;
 }
 
 .livePill {
@@ -95,28 +66,20 @@
   50%       { opacity: 0.2; }
 }
 
-/* ── Logo button ── */
+/* ── Hamburger ── */
 .hamburger {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--sc-cream);
+  color: rgba(242,237,227,0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  transition: opacity 0.15s;
+  padding: 4px;
+  transition: color 0.15s;
 }
 
-.hamburger:hover { opacity: 0.75; }
-
-.hamburgerLogo {
-  height: 44px;
-  width: auto;
-  filter: invert(1) sepia(1) saturate(2);
-  mix-blend-mode: screen;
-  display: block;
-}
+.hamburger:hover { color: var(--sc-cream); }
 
 /* ── Backdrop ── */
 .backdrop {
@@ -202,10 +165,66 @@
 .main {
   flex: 1;
   overflow-y: auto;
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
 }
 
 .inner {
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
+}
+
+/* ── Bottom nav ── */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--sc-green);
+  border-top: 2px solid var(--gold);
+  display: flex;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.navTab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 4px 12px;
+  text-decoration: none;
+  color: rgba(242,237,227,0.3);
+  transition: color 0.15s;
+  min-height: 60px;
+}
+
+.navTab:hover { color: rgba(242,237,227,0.6); }
+
+.navIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 28px;
+  border-radius: 14px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.navLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.44rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.navTabActive {
+  color: var(--gold);
+}
+
+.navTabActive .navIconWrap {
+  background: rgba(184,150,46,0.12);
+  border: 1px solid rgba(184,150,46,0.3);
 }

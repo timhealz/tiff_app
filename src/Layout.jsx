@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Outlet, NavLink, Link } from 'react-router-dom'
-import { Menu, X, Settings } from 'lucide-react'
+import { Menu, X, Home, Users, Trophy, User, Settings } from 'lucide-react'
 import { usePlayerContext } from './contexts/PlayerContext'
 import s from './Layout.module.css'
 
@@ -18,12 +18,6 @@ export default function Layout() {
         <Link to="/" className={s.headerLogo} onClick={close}>
           <img src="/tiff-logo.png" alt="The Tiff" />
         </Link>
-        <nav className={s.tabs}>
-          <NavLink to="/" end className={({ isActive }) => `${s.tab} ${isActive ? s.tabActive : ''}`}>Home</NavLink>
-          <NavLink to="/players" className={({ isActive }) => `${s.tab} ${isActive ? s.tabActive : ''}`}>Players</NavLink>
-          <NavLink to="/history" className={({ isActive }) => `${s.tab} ${isActive ? s.tabActive : ''}`}>History</NavLink>
-          <NavLink to={meHref} className={({ isActive }) => `${s.tab} ${isActive ? s.tabActive : ''}`}>Me</NavLink>
-        </nav>
         <div className={s.headerRight}>
           {tournament?.status === 'active' && (
             <div className={s.livePill}>
@@ -58,6 +52,25 @@ export default function Layout() {
           <Outlet />
         </div>
       </main>
+
+      <nav className={s.nav}>
+        <NavLink to="/" end className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
+          <span className={s.navIconWrap}><Home size={22} strokeWidth={1.75} /></span>
+          <span className={s.navLabel}>Home</span>
+        </NavLink>
+        <NavLink to="/players" className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
+          <span className={s.navIconWrap}><Users size={22} strokeWidth={1.75} /></span>
+          <span className={s.navLabel}>Players</span>
+        </NavLink>
+        <NavLink to="/history" className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
+          <span className={s.navIconWrap}><Trophy size={22} strokeWidth={1.75} /></span>
+          <span className={s.navLabel}>History</span>
+        </NavLink>
+        <NavLink to={meHref} className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
+          <span className={s.navIconWrap}><User size={22} strokeWidth={1.75} /></span>
+          <span className={s.navLabel}>Me</span>
+        </NavLink>
+      </nav>
     </div>
   )
 }
