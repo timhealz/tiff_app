@@ -1,0 +1,229 @@
+/* ── Hero ── */
+.hero {
+  background: var(--sc-green);
+  padding: 14px 16px 18px;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+}
+
+.heroName {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--sc-cream);
+  line-height: 1;
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.chipHcp   { background: rgba(184,150,46,0.2);  color: var(--gold);              border: 1px solid rgba(184,150,46,0.4); }
+.chipGhin  { background: rgba(255,255,255,0.08); color: rgba(242,237,227,0.55);  border: 1px solid rgba(255,255,255,0.15); }
+.chipTrips { background: rgba(46,125,71,0.2);    color: #7acc8a;                 border: 1px solid rgba(46,125,71,0.3); }
+.chipChamp { background: rgba(184,150,46,0.15);  color: var(--gold);             border: 1px solid rgba(184,150,46,0.5); }
+
+/* ── Stats bar ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 2px solid var(--sc-green);
+}
+
+.stat {
+  padding: 10px 8px;
+  text-align: center;
+  border-right: 1px solid var(--sc-cream-mid);
+  background: var(--sc-cream-dark);
+}
+
+.stat:last-child { border-right: none; }
+
+.statVal {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.statLbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.48rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-lt);
+  margin-top: 2px;
+}
+
+/* ── Year-by-year cards ── */
+.history {
+  background: var(--sc-cream-dark);
+  padding: 10px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.yearCard {
+  background: var(--sc-cream);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--sc-cream-mid);
+}
+
+/* Card header (green band) */
+.ycHeader {
+  background: var(--sc-green);
+  border-bottom: 2px solid var(--gold);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ycYear {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.ycLoc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.48rem;
+  color: rgba(242,237,227,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 3px;
+}
+
+.ycPos {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  color: rgba(242,237,227,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-top: 2px;
+}
+
+.ycPos.win { color: var(--gold); }
+
+/* Stats row (HCP · Gross · vs Par) */
+.ycStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--sc-cream-mid);
+}
+
+.ycStat {
+  padding: 8px 10px;
+  text-align: center;
+  border-right: 1px solid var(--sc-cream-mid);
+}
+
+.ycStat:last-child { border-right: none; }
+
+.ycStatVal {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ycStatVal.under { color: #1a6b2a; }
+.ycStatVal.over  { color: #b83030; }
+
+.ycStatLbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.44rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-lt);
+  margin-top: 2px;
+}
+
+/* Per-round rows */
+.ycRounds { }
+
+.ycRound {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  background: var(--sc-cream);
+}
+
+.ycRound:last-child { border-bottom: none; }
+.ycRound.alt { background: var(--sc-cream-dark); }
+
+.ycCourse {
+  flex: 1;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ycGross {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+  min-width: 28px;
+  text-align: right;
+}
+
+.ycDiff {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--sc-green-lite);
+  min-width: 52px;
+  text-align: right;
+}
+
+/* ── Empty / loading ── */
+.empty {
+  padding: 32px 14px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.loading {
+  padding: 40px 16px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: rgba(242,237,227,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.under { color: #1a6b2a; }
+.over  { color: #b83030; }

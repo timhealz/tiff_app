@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Tiff — New Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --green:      #1a4a2a;
+  --green-mid:  #235c35;
+  --green-lite: #2e7d47;
+  --cream:      #f2ede3;
+  --cream-dk:   #e8e1d4;
+  --cream-mid:  #ddd5c4;
+  --rule:       #c8bfa8;
+  --gold:       #b8962e;
+  --gold-lt:    #d4b45a;
+  --ink:        #1a1a16;
+  --ink-mid:    #4a4a40;
+  --ink-lt:     #7a7a6a;
+  --eagle:      #4a9e4a;
+  --birdie:     #a8d8a8;
+  --bogey:      #f5c6c6;
+  --double:     #e87070;
+}
+
+body {
+  background: #0d160f;
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 40px 20px 80px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  letter-spacing: .1em;
+  color: var(--cream);
+}
+.page-title span { color: var(--gold); }
+.page-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  color: #4a7a4a;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.version-tag {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(184,150,46,.1);
+  border: 1px solid rgba(184,150,46,.25);
+  border-radius: 3px;
+  padding: 4px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  color: var(--gold);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.row-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  color: #3a6a3a;
+  text-align: center;
+  margin: 44px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.row-label::before,.row-label::after {
+  content:''; flex:1; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(74,122,74,.35), transparent);
+}
+
+.screens {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.screen-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.screen-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: #5a9a5a;
+}
+
+/* ── PHONE SHELL ── */
+.phone {
+  width: 300px;
+  background: var(--cream);
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 0 0 5px #111,
+    0 36px 90px rgba(0,0,0,.8);
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+}
+
+.status-bar {
+  height: 38px;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  flex-shrink: 0;
+}
+.sb-time { font-family:'IBM Plex Mono',monospace; font-size:.65rem; color:var(--cream); }
+.sb-icons { font-size:.58rem; color:var(--cream); display:flex; gap:4px; }
+
+.app-header {
+  background: var(--green);
+  padding: 8px 16px 13px;
+  position: relative;
+  flex-shrink: 0;
+}
+.app-header::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  background: var(--gold);
+}
+.app-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;
+  letter-spacing:.1em;
+  color:var(--cream);
+  line-height:1;
+}
+.app-name span { color:var(--gold); }
+.app-sub {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;
+  color:rgba(242,237,227,.45);
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  margin-top:2px;
+}
+.header-row { display:flex; justify-content:space-between; align-items:flex-end; }
+
+.scroll {
+  flex:1; overflow-y:auto;
+  background:var(--cream);
+  scrollbar-width:none;
+}
+.scroll::-webkit-scrollbar { display:none; }
+
+.bottom-nav {
+  display:flex;
+  background:var(--green);
+  border-top:3px solid var(--gold);
+  padding:8px 0 10px;
+  flex-shrink:0;
+}
+.nav-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; }
+.nav-ico { font-size:.9rem; }
+.nav-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.46rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(242,237,227,.3);
+}
+.nav-item.active .nav-lbl { color:var(--gold); }
+
+.section-hdr {
+  background:var(--green);
+  padding:6px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid rgba(184,150,46,.25);
+  border-bottom:1px solid rgba(184,150,46,.25);
+}
+.section-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.9rem;
+  letter-spacing:.12em;
+  color:var(--cream);
+}
+.section-sub {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  color:rgba(242,237,227,.38);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+
+
+/* ═══════════════════════════════════════════
+   SCREEN 1 — OFF-SEASON LANDING
+═══════════════════════════════════════════ */
+
+/* Countdown hero */
+.countdown-hero {
+  background: var(--green);
+  padding: 20px 16px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.countdown-hero::before {
+  content:'';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 28px,
+    rgba(255,255,255,.018) 28px, rgba(255,255,255,.018) 29px
+  );
+}
+.countdown-hero::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  background: var(--gold);
+}
+.cdh-eyebrow {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.56rem;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  color:rgba(242,237,227,.4);
+  margin-bottom:10px;
+  position:relative; z-index:1;
+}
+.cdh-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.8rem;
+  letter-spacing:.06em;
+  color:var(--cream);
+  line-height:.95;
+  position:relative; z-index:1;
+}
+.cdh-title span { color:var(--gold); display:block; }
+.cdh-location {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;
+  color:rgba(242,237,227,.5);
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  margin-top:6px;
+  position:relative; z-index:1;
+}
+
+/* Countdown digits */
+.countdown-digits {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  margin-top:16px;
+  position:relative; z-index:1;
+}
+.cd-unit {
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(184,150,46,.2);
+  border-radius:4px;
+  padding:8px 4px;
+  text-align:center;
+}
+.cd-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;
+  letter-spacing:.04em;
+  color:var(--gold);
+  line-height:1;
+}
+.cd-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.44rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:rgba(242,237,227,.35);
+  margin-top:3px;
+}
+
+/* Player roster strip */
+.roster-strip {
+  padding:12px 14px;
+  background:var(--cream);
+  border-bottom:1px solid var(--cream-mid);
+}
+.roster-scroll {
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+.roster-scroll::-webkit-scrollbar { display:none; }
+.roster-player {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  flex-shrink:0;
+  cursor:pointer;
+}
+.roster-avatar {
+  width:44px; height:44px;
+  background:var(--green);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem;
+  letter-spacing:.05em;
+  color:var(--gold);
+  border:2px solid var(--rule);
+  position:relative;
+}
+.roster-avatar.champion { border-color:var(--gold); }
+.roster-avatar.champion::after {
+  content:'🏆';
+  position:absolute;
+  top:-6px; right:-6px;
+  font-size:.55rem;
+  line-height:1;
+}
+.roster-name {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--ink-mid);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  text-align:center;
+}
+.roster-hcp {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  color:var(--gold);
+}
+
+/* Results cards */
+.results-scroll-wrap {
+  padding:12px 14px 4px;
+  background:var(--cream-dk);
+}
+.results-scroll-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--ink-lt);
+  margin-bottom:8px;
+}
+.results-scroll {
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:8px;
+  scrollbar-width:none;
+}
+.results-scroll::-webkit-scrollbar { display:none; }
+
+.result-card {
+  flex-shrink:0;
+  width:130px;
+  background:var(--green);
+  border-radius:6px;
+  overflow:hidden;
+  border:1px solid rgba(184,150,46,.2);
+  cursor:pointer;
+}
+.rc-header {
+  background:rgba(0,0,0,.2);
+  padding:7px 9px;
+  border-bottom:2px solid var(--gold);
+}
+.rc-year {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.3rem;
+  letter-spacing:.08em;
+  color:var(--gold);
+  line-height:1;
+}
+.rc-location {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:rgba(242,237,227,.45);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-top:2px;
+}
+.rc-body { padding:8px 9px; }
+.rc-champion-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.46rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:rgba(184,150,46,.7);
+  margin-bottom:3px;
+}
+.rc-champion-name {
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--cream);
+}
+.rc-score {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.56rem;
+  color:rgba(242,237,227,.45);
+  margin-top:2px;
+}
+.rc-podium {
+  margin-top:6px;
+  padding-top:6px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.rc-pod-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:3px;
+}
+.rc-pod-pos {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  color:rgba(242,237,227,.3);
+}
+.rc-pod-name {
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.6rem;
+  color:rgba(242,237,227,.6);
+}
+.rc-pod-net {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:rgba(242,237,227,.4);
+}
+
+/* All-time stats */
+.alltime-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--cream-mid);
+  border-top:1px solid var(--cream-mid);
+  border-bottom:2px solid var(--green);
+}
+.at-box {
+  background:var(--cream);
+  padding:11px 12px;
+}
+.at-box.dk { background:var(--cream-dk); }
+.at-val {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;
+  letter-spacing:.04em;
+  color:var(--ink);
+  line-height:1;
+}
+.at-val.gold { color:var(--gold); }
+.at-val.green { color:#1a6b2a; }
+.at-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--ink-lt);
+  margin-top:3px;
+}
+.at-detail {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;
+  color:var(--ink-lt);
+  margin-top:2px;
+}
+
+/* All-time leaderboard */
+.alltime-lb { background:var(--cream); }
+.atlb-row {
+  display:grid;
+  grid-template-columns:24px 1fr 32px 32px 32px;
+  padding:8px 14px;
+  border-bottom:1px solid var(--cream-mid);
+  align-items:center;
+  gap:4px;
+}
+.atlb-row.alt { background:var(--cream-dk); }
+.atlb-pos {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem;
+  font-weight:600;
+  text-align:center;
+  color:var(--ink-mid);
+}
+.atlb-pos.p1 { color:var(--gold); }
+.atlb-name {
+  font-size:.75rem;
+  font-weight:600;
+  color:var(--ink);
+}
+.atlb-sub {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--ink-lt);
+  margin-top:1px;
+}
+.atlb-cell {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem;
+  text-align:center;
+  color:var(--ink-mid);
+}
+.atlb-cell.wins { color:var(--gold); font-weight:600; }
+.atlb-thead {
+  display:grid;
+  grid-template-columns:24px 1fr 32px 32px 32px;
+  padding:5px 14px;
+  background:var(--green);
+  border-bottom:2px solid var(--gold);
+  gap:4px;
+}
+.atlb-th {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(242,237,227,.55);
+  text-align:center;
+}
+.atlb-th:nth-child(2) { text-align:left; }
+
+
+/* ═══════════════════════════════════════════
+   SCREEN 2 — POST-TOURNAMENT WRAP-UP
+═══════════════════════════════════════════ */
+
+/* Champion hero */
+.champ-hero {
+  background: var(--green);
+  padding: 20px 16px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.champ-hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(184,150,46,.18) 0%, transparent 70%);
+}
+.champ-hero::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  background: var(--gold);
+}
+.champ-trophy {
+  font-size:2.8rem;
+  position:relative; z-index:1;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-6px); }
+}
+.champ-eyebrow {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.54rem;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  color:var(--gold);
+  margin-top:10px;
+  position:relative; z-index:1;
+}
+.champ-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.6rem;
+  letter-spacing:.06em;
+  color:var(--cream);
+  line-height:1;
+  margin-top:4px;
+  position:relative; z-index:1;
+}
+.champ-score {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.65rem;
+  color:rgba(242,237,227,.5);
+  margin-top:6px;
+  position:relative; z-index:1;
+}
+.champ-score strong { color:var(--gold-lt); }
+
+/* Gold rule */
+.gold-rule {
+  height:2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin:0;
+}
+
+/* Final standings */
+.final-standings { background:var(--cream); }
+.fs-thead {
+  display:grid;
+  grid-template-columns:24px 1fr 40px 40px 40px;
+  padding:6px 12px;
+  background:var(--green);
+  border-bottom:2px solid var(--gold);
+  gap:4px;
+}
+.fsth {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(242,237,227,.55);
+  text-align:center;
+}
+.fsth:nth-child(2) { text-align:left; }
+
+.fs-row {
+  display:grid;
+  grid-template-columns:24px 1fr 40px 40px 40px;
+  padding:8px 12px;
+  border-bottom:1px solid var(--cream-mid);
+  align-items:center;
+  gap:4px;
+  background:var(--cream);
+}
+.fs-row.alt { background:var(--cream-dk); }
+.fs-row.p1  {
+  background:linear-gradient(90deg, rgba(184,150,46,.08) 0%, var(--cream) 70%);
+}
+.fs-pos {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem; font-weight:600;
+  text-align:center; color:var(--ink-mid);
+}
+.fs-pos.gold { color:var(--gold); }
+.fs-name { font-size:.75rem; font-weight:600; color:var(--ink); }
+.fs-hcp {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem; color:var(--ink-lt);
+  margin-top:1px;
+}
+.fscell {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  text-align:center; color:var(--ink-mid);
+}
+.fscell.under { color:#1a6b2a; font-weight:600; }
+.fscell.over  { color:#b83030; }
+
+/* Week highlights */
+.wk-highlights {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--cream-mid);
+}
+.wkh {
+  background:var(--cream);
+  padding:11px 11px;
+}
+.wkh.dk { background:var(--cream-dk); }
+.wkh-ico { font-size:1.2rem; margin-bottom:4px; }
+.wkh-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--ink-lt);
+  margin-bottom:4px;
+}
+.wkh-val {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;
+  letter-spacing:.04em;
+  color:var(--ink);
+  line-height:1;
+}
+.wkh-val.good  { color:#1a6b2a; }
+.wkh-val.gold  { color:var(--gold); }
+.wkh-detail {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--ink-lt);
+  margin-top:3px;
+  line-height:1.4;
+}
+
+/* Handicap movement */
+.hcp-moves { padding:10px 14px 14px; background:var(--cream); }
+.hcp-moves-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--ink-lt);
+  margin-bottom:8px;
+}
+.hm-row {
+  display:grid;
+  grid-template-columns:1fr 42px 14px 42px 36px;
+  padding:6px 0;
+  border-bottom:1px solid var(--cream-mid);
+  align-items:center;
+  gap:4px;
+}
+.hm-row:last-child { border-bottom:none; }
+.hm-name { font-size:.72rem; font-weight:500; color:var(--ink); }
+.hm-val {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem; text-align:center; color:var(--ink-mid);
+}
+.hm-arrow { text-align:center; font-size:.65rem; }
+.hm-new {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem; text-align:center;
+  font-weight:600; color:var(--ink);
+}
+.hm-delta {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem; text-align:center;
+}
+.hm-delta.down { color:#1a6b2a; }
+.hm-delta.up   { color:#b83030; }
+
+/* Share button */
+.share-btn-wrap {
+  padding:12px 14px;
+  background:var(--cream-dk);
+  border-top:1px solid var(--cream-mid);
+}
+.share-btn {
+  width:100%;
+  padding:11px;
+  background:var(--green);
+  color:var(--gold);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem;
+  letter-spacing:.12em;
+  border:2px solid var(--gold);
+  border-radius:4px;
+  cursor:pointer;
+  text-align:center;
+}
+
+
+/* ═══════════════════════════════════════════
+   SCREEN 3 — PLAYER DIRECTORY
+═══════════════════════════════════════════ */
+
+/* Search bar */
+.search-bar {
+  padding:10px 14px;
+  background:var(--cream-dk);
+  border-bottom:1px solid var(--cream-mid);
+}
+.search-input {
+  width:100%;
+  background:var(--cream);
+  border:1.5px solid var(--rule);
+  border-radius:4px;
+  padding:9px 12px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.75rem;
+  color:var(--ink);
+  outline:none;
+}
+.search-input::placeholder { color:var(--ink-lt); }
+
+/* Sort tabs */
+.sort-tabs {
+  display:flex;
+  gap:0;
+  padding:8px 14px;
+  background:var(--cream);
+  border-bottom:2px solid var(--green);
+}
+.sort-tab {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  padding:4px 10px;
+  border:1px solid var(--rule);
+  color:var(--ink-lt);
+  cursor:pointer;
+  background:var(--cream);
+}
+.sort-tab:first-child { border-radius:3px 0 0 3px; }
+.sort-tab:last-child  { border-radius:0 3px 3px 0; }
+.sort-tab + .sort-tab { border-left:none; }
+.sort-tab.active {
+  background:var(--green);
+  color:var(--cream);
+  border-color:var(--green);
+}
+
+/* Player list */
+.player-list { background:var(--cream); }
+.pl-thead {
+  display:grid;
+  grid-template-columns:1fr 38px 38px 42px;
+  padding:5px 14px;
+  background:var(--green);
+  border-bottom:2px solid var(--gold);
+  gap:4px;
+}
+.plth {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.46rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(242,237,227,.55);
+  text-align:center;
+}
+.plth:first-child { text-align:left; }
+
+.pl-row {
+  display:grid;
+  grid-template-columns:1fr 38px 38px 42px;
+  padding:10px 14px;
+  border-bottom:1px solid var(--cream-mid);
+  align-items:center;
+  gap:4px;
+  cursor:pointer;
+  background:var(--cream);
+  transition:background .1s;
+}
+.pl-row:hover { background:var(--cream-dk); }
+.pl-row.alt { background:var(--cream-dk); }
+.pl-row.alt:hover { background:var(--cream-mid); }
+
+.pl-player { display:flex; align-items:center; gap:8px; }
+.pl-avatar {
+  width:32px; height:32px;
+  background:var(--green);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.78rem;
+  letter-spacing:.04em;
+  color:var(--gold);
+  border:1.5px solid var(--rule);
+  flex-shrink:0;
+}
+.pl-avatar.champ { border-color:var(--gold); }
+.pl-info {}
+.pl-name { font-size:.76rem; font-weight:600; color:var(--ink); }
+.pl-trips {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--ink-lt);
+  margin-top:1px;
+}
+
+.plcell {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem;
+  text-align:center;
+  color:var(--ink-mid);
+}
+.plcell.hcp {
+  font-size:.62rem;
+  padding:2px 4px;
+  border-radius:2px;
+}
+.plcell.hcp.t1 { background:rgba(184,150,46,.12); color:var(--gold); }
+.plcell.hcp.t2 { background:rgba(46,125,71,.1); color:var(--green-lite); }
+.plcell.hcp.t3 { background:rgba(0,0,0,.05); color:var(--ink-lt); }
+.plcell.best { color:var(--gold); }
+
+.pl-arrow {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;
+  color:var(--rule);
+  text-align:right;
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-title">THE <span>TIFF</span></div>
+  <div class="page-sub">New Screens · Off-Season · Post-Tournament · Player Directory</div>
+  <div class="version-tag">3 new screens · 2 modes · year-round app</div>
+</div>
+
+<!-- ════ ROW 1 ════ -->
+<div class="row-label">Off-Season &amp; Post-Tournament</div>
+<div class="screens">
+
+  <!-- SCREEN 1: OFF-SEASON LANDING -->
+  <div class="screen-wrap">
+    <div class="screen-label">① Off-Season Landing</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">Annual Golf Classic</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll">
+
+        <!-- Countdown -->
+        <div class="countdown-hero">
+          <div class="cdh-eyebrow">Next Tiff in</div>
+          <div class="cdh-title">The <span>8th Annual</span></div>
+          <div class="cdh-location">📍 TBD · Est. Summer 2026</div>
+          <div class="countdown-digits">
+            <div class="cd-unit"><div class="cd-num">312</div><div class="cd-lbl">Days</div></div>
+            <div class="cd-unit"><div class="cd-num">14</div><div class="cd-lbl">Hours</div></div>
+            <div class="cd-unit"><div class="cd-num">07</div><div class="cd-lbl">Mins</div></div>
+            <div class="cd-unit"><div class="cd-num">22</div><div class="cd-lbl">Secs</div></div>
+          </div>
+        </div>
+
+        <!-- Player roster -->
+        <div class="section-hdr">
+          <span class="section-title">The Field</span>
+          <span class="section-sub">Tap to view record</span>
+        </div>
+        <div class="roster-strip">
+          <div class="roster-scroll">
+            <div class="roster-player">
+              <div class="roster-avatar champion">TH</div>
+              <div class="roster-name">Healy</div>
+              <div class="roster-hcp">13.2</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">MD</div>
+              <div class="roster-name">Donovan</div>
+              <div class="roster-hcp">11.8</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">RC</div>
+              <div class="roster-name">Castellano</div>
+              <div class="roster-hcp">8.4</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">JP</div>
+              <div class="roster-name">Pruitt</div>
+              <div class="roster-hcp">22.0</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">BW</div>
+              <div class="roster-name">Wallace</div>
+              <div class="roster-hcp">22.0</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">DP</div>
+              <div class="roster-name">Park</div>
+              <div class="roster-hcp">18.0</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">KM</div>
+              <div class="roster-name">Morales</div>
+              <div class="roster-hcp">9.4</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Past results -->
+        <div class="section-hdr">
+          <span class="section-title">Championships</span>
+          <span class="section-sub">7 years</span>
+        </div>
+        <div class="results-scroll-wrap">
+          <div class="results-scroll">
+
+            <div class="result-card">
+              <div class="rc-header">
+                <div class="rc-year">2025</div>
+                <div class="rc-location">Pebble Beach</div>
+              </div>
+              <div class="rc-body">
+                <div class="rc-champion-lbl">🏆 Champion</div>
+                <div class="rc-champion-name">T. Healy</div>
+                <div class="rc-score">207 net · <strong style="color:var(--gold-lt)">−9</strong></div>
+                <div class="rc-podium">
+                  <div class="rc-pod-row"><span class="rc-pod-pos">2nd</span><span class="rc-pod-name">M. Donovan</span><span class="rc-pod-net">−7</span></div>
+                  <div class="rc-pod-row"><span class="rc-pod-pos">3rd</span><span class="rc-pod-name">R. Cast.</span><span class="rc-pod-net">−5</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card">
+              <div class="rc-header">
+                <div class="rc-year">2024</div>
+                <div class="rc-location">Bandon Dunes</div>
+              </div>
+              <div class="rc-body">
+                <div class="rc-champion-lbl">🏆 Champion</div>
+                <div class="rc-champion-name">M. Donovan</div>
+                <div class="rc-score">211 net · <strong style="color:var(--gold-lt)">−5</strong></div>
+                <div class="rc-podium">
+                  <div class="rc-pod-row"><span class="rc-pod-pos">2nd</span><span class="rc-pod-name">K. Morales</span><span class="rc-pod-net">−3</span></div>
+                  <div class="rc-pod-row"><span class="rc-pod-pos">3rd</span><span class="rc-pod-name">T. Healy</span><span class="rc-pod-net">−2</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card">
+              <div class="rc-header">
+                <div class="rc-year">2023</div>
+                <div class="rc-location">Pinehurst</div>
+              </div>
+              <div class="rc-body">
+                <div class="rc-champion-lbl">🏆 Champion</div>
+                <div class="rc-champion-name">R. Castellano</div>
+                <div class="rc-score">209 net · <strong style="color:var(--gold-lt)">−7</strong></div>
+                <div class="rc-podium">
+                  <div class="rc-pod-row"><span class="rc-pod-pos">2nd</span><span class="rc-pod-name">T. Healy</span><span class="rc-pod-net">−6</span></div>
+                  <div class="rc-pod-row"><span class="rc-pod-pos">3rd</span><span class="rc-pod-name">J. Pruitt</span><span class="rc-pod-net">−4</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card">
+              <div class="rc-header">
+                <div class="rc-year">2022</div>
+                <div class="rc-location">Kiawah Island</div>
+              </div>
+              <div class="rc-body">
+                <div class="rc-champion-lbl">🏆 Champion</div>
+                <div class="rc-champion-name">B. Wallace</div>
+                <div class="rc-score">214 net · <strong style="color:var(--gold-lt)">+2</strong></div>
+                <div class="rc-podium">
+                  <div class="rc-pod-row"><span class="rc-pod-pos">2nd</span><span class="rc-pod-name">M. Donovan</span><span class="rc-pod-net">+3</span></div>
+                  <div class="rc-pod-row"><span class="rc-pod-pos">3rd</span><span class="rc-pod-name">D. Park</span><span class="rc-pod-net">+5</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- All-time records -->
+        <div class="section-hdr">
+          <span class="section-title">All-Time Records</span>
+          <span class="section-sub">7 years · 147 rounds</span>
+        </div>
+        <div class="alltime-grid">
+          <div class="at-box">
+            <div class="at-val gold">2×</div>
+            <div class="at-lbl">Most Championships</div>
+            <div class="at-detail">T. Healy</div>
+          </div>
+          <div class="at-box dk">
+            <div class="at-val green">67</div>
+            <div class="at-lbl">Low Net Round</div>
+            <div class="at-detail">T. Healy · 2023</div>
+          </div>
+          <div class="at-box dk">
+            <div class="at-val">82</div>
+            <div class="at-lbl">Low Gross Round</div>
+            <div class="at-detail">R. Castellano · 2023</div>
+          </div>
+          <div class="at-box">
+            <div class="at-val gold">11.4</div>
+            <div class="at-lbl">Low Differential</div>
+            <div class="at-detail">T. Healy · 2025</div>
+          </div>
+        </div>
+
+        <!-- All-time standings -->
+        <div class="section-hdr">
+          <span class="section-title">All-Time Standings</span>
+          <span class="section-sub">Wins · Podiums · Avg net</span>
+        </div>
+        <div class="alltime-lb">
+          <div class="atlb-thead">
+            <div class="atlb-th"></div>
+            <div class="atlb-th" style="text-align:left">Player</div>
+            <div class="atlb-th">W</div>
+            <div class="atlb-th">Pod</div>
+            <div class="atlb-th">Avg</div>
+          </div>
+          <div class="atlb-row">
+            <div class="atlb-pos p1">🏆</div>
+            <div><div class="atlb-name">T. Healy</div><div class="atlb-sub">7 trips</div></div>
+            <div class="atlb-cell wins">2</div>
+            <div class="atlb-cell">5</div>
+            <div class="atlb-cell" style="color:#1a6b2a">−3.1</div>
+          </div>
+          <div class="atlb-row alt">
+            <div class="atlb-pos">2</div>
+            <div><div class="atlb-name">M. Donovan</div><div class="atlb-sub">7 trips</div></div>
+            <div class="atlb-cell wins">1</div>
+            <div class="atlb-cell">4</div>
+            <div class="atlb-cell" style="color:#1a6b2a">−2.4</div>
+          </div>
+          <div class="atlb-row">
+            <div class="atlb-pos">3</div>
+            <div><div class="atlb-name">R. Castellano</div><div class="atlb-sub">5 trips</div></div>
+            <div class="atlb-cell wins">1</div>
+            <div class="atlb-cell">3</div>
+            <div class="atlb-cell" style="color:#1a6b2a">−1.8</div>
+          </div>
+          <div class="atlb-row alt">
+            <div class="atlb-pos">4</div>
+            <div><div class="atlb-name">B. Wallace</div><div class="atlb-sub">4 trips</div></div>
+            <div class="atlb-cell wins">1</div>
+            <div class="atlb-cell">2</div>
+            <div class="atlb-cell">+0.4</div>
+          </div>
+          <div class="atlb-row">
+            <div class="atlb-pos">5</div>
+            <div><div class="atlb-name">K. Morales</div><div class="atlb-sub">6 trips</div></div>
+            <div class="atlb-cell wins">0</div>
+            <div class="atlb-cell">3</div>
+            <div class="atlb-cell">+1.2</div>
+          </div>
+        </div>
+
+      </div><!-- /scroll -->
+
+      <div class="bottom-nav">
+        <div class="nav-item active"><span class="nav-ico">🏠</span><span class="nav-lbl">Home</span></div>
+        <div class="nav-item"><span class="nav-ico">👥</span><span class="nav-lbl">Players</span></div>
+        <div class="nav-item"><span class="nav-ico">📜</span><span class="nav-lbl">History</span></div>
+        <div class="nav-item"><span class="nav-ico">👤</span><span class="nav-lbl">Me</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: POST-TOURNAMENT WRAP-UP -->
+  <div class="screen-wrap">
+    <div class="screen-label">② Post-Tournament Wrap-Up</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">2025 · Final Results</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll">
+
+        <!-- Champion hero -->
+        <div class="champ-hero">
+          <div class="champ-trophy">🏆</div>
+          <div class="champ-eyebrow">2025 Tiff Champion</div>
+          <div class="champ-name">T. Healy</div>
+          <div class="champ-score">207 net · <strong>−9 vs par</strong> · Pebble Beach</div>
+        </div>
+
+        <div class="gold-rule"></div>
+
+        <!-- Final standings -->
+        <div class="section-hdr">
+          <span class="section-title">Final Standings</span>
+          <span class="section-sub">2025 · Net stroke play</span>
+        </div>
+        <div class="final-standings">
+          <div class="fs-thead">
+            <div class="fsth"></div>
+            <div class="fsth" style="text-align:left">Player</div>
+            <div class="fsth">Net</div>
+            <div class="fsth">+/−</div>
+            <div class="fsth">Gross</div>
+          </div>
+          <div class="fs-row p1">
+            <div class="fs-pos gold">🏆</div>
+            <div><div class="fs-name">T. Healy</div><div class="fs-hcp">Tiff 13.2</div></div>
+            <div class="fscell">207</div>
+            <div class="fscell under">−9</div>
+            <div class="fscell">262</div>
+          </div>
+          <div class="fs-row alt">
+            <div class="fs-pos">2</div>
+            <div><div class="fs-name">M. Donovan</div><div class="fs-hcp">Tiff 11.8</div></div>
+            <div class="fscell">209</div>
+            <div class="fscell under">−7</div>
+            <div class="fscell">244</div>
+          </div>
+          <div class="fs-row">
+            <div class="fs-pos">3</div>
+            <div><div class="fs-name">R. Castellano</div><div class="fs-hcp">Tiff* 8.4</div></div>
+            <div class="fscell">211</div>
+            <div class="fscell under">−5</div>
+            <div class="fscell">236</div>
+          </div>
+          <div class="fs-row alt">
+            <div class="fs-pos">4</div>
+            <div><div class="fs-name">J. Pruitt</div><div class="fs-hcp">Tiff* 22.0</div></div>
+            <div class="fscell">213</div>
+            <div class="fscell even" style="color:var(--ink-mid)">E</div>
+            <div class="fscell">279</div>
+          </div>
+          <div class="fs-row">
+            <div class="fs-pos">5</div>
+            <div><div class="fs-name">B. Wallace</div><div class="fs-hcp">GHIN 22.0</div></div>
+            <div class="fscell">215</div>
+            <div class="fscell over">+2</div>
+            <div class="fscell">281</div>
+          </div>
+          <div class="fs-row alt">
+            <div class="fs-pos">6</div>
+            <div><div class="fs-name">D. Park</div><div class="fs-hcp">Cmsr 18</div></div>
+            <div class="fscell">219</div>
+            <div class="fscell over">+6</div>
+            <div class="fscell">273</div>
+          </div>
+        </div>
+
+        <!-- Week highlights -->
+        <div class="section-hdr">
+          <span class="section-title">Week Highlights</span>
+          <span class="section-sub">2025 Tiff</span>
+        </div>
+        <div class="wk-highlights">
+          <div class="wkh">
+            <div class="wkh-ico">⛳</div>
+            <div class="wkh-lbl">Low Round</div>
+            <div class="wkh-val good">67</div>
+            <div class="wkh-detail">T. Healy<br>Pebble · Day 1</div>
+          </div>
+          <div class="wkh dk">
+            <div class="wkh-ico">🐦</div>
+            <div class="wkh-lbl">Most Birdies</div>
+            <div class="wkh-val good">11</div>
+            <div class="wkh-detail">R. Castellano<br>across 3 rounds</div>
+          </div>
+          <div class="wkh dk">
+            <div class="wkh-ico">📉</div>
+            <div class="wkh-lbl">Biggest Drop</div>
+            <div class="wkh-val gold">−4.2</div>
+            <div class="wkh-detail">J. Pruitt HCP<br>29.0 → 24.8</div>
+          </div>
+          <div class="wkh">
+            <div class="wkh-ico">💪</div>
+            <div class="wkh-lbl">Grittiest Round</div>
+            <div class="wkh-val">+1</div>
+            <div class="wkh-detail">B. Wallace<br>Cypress · Day 3</div>
+          </div>
+        </div>
+
+        <!-- Handicap movements -->
+        <div class="section-hdr">
+          <span class="section-title">Tiff HCP Updates</span>
+          <span class="section-sub">Takes effect for 2026</span>
+        </div>
+        <div class="hcp-moves">
+          <div class="hm-row">
+            <div class="hm-name">T. Healy</div>
+            <div class="hm-val">13.2</div>
+            <div class="hm-arrow">→</div>
+            <div class="hm-new">12.8</div>
+            <div class="hm-delta down">−0.4</div>
+          </div>
+          <div class="hm-row">
+            <div class="hm-name">J. Pruitt</div>
+            <div class="hm-val">22.0</div>
+            <div class="hm-arrow">→</div>
+            <div class="hm-new">19.6</div>
+            <div class="hm-delta down">−2.4</div>
+          </div>
+          <div class="hm-row">
+            <div class="hm-name">M. Donovan</div>
+            <div class="hm-val">11.8</div>
+            <div class="hm-arrow">→</div>
+            <div class="hm-new">11.4</div>
+            <div class="hm-delta down">−0.4</div>
+          </div>
+          <div class="hm-row">
+            <div class="hm-name">B. Wallace</div>
+            <div class="hm-val">22.0</div>
+            <div class="hm-arrow">→</div>
+            <div class="hm-new">22.6</div>
+            <div class="hm-delta up">+0.6</div>
+          </div>
+          <div class="hm-row">
+            <div class="hm-name">R. Castellano</div>
+            <div class="hm-val">8.4</div>
+            <div class="hm-arrow">→</div>
+            <div class="hm-new">7.9</div>
+            <div class="hm-delta down">−0.5</div>
+          </div>
+        </div>
+
+        <div class="share-btn-wrap">
+          <button class="share-btn">📤 Share Results</button>
+        </div>
+
+      </div><!-- /scroll -->
+
+      <div class="bottom-nav">
+        <div class="nav-item active"><span class="nav-ico">🏠</span><span class="nav-lbl">Home</span></div>
+        <div class="nav-item"><span class="nav-ico">👥</span><span class="nav-lbl">Players</span></div>
+        <div class="nav-item"><span class="nav-ico">📜</span><span class="nav-lbl">History</span></div>
+        <div class="nav-item"><span class="nav-ico">👤</span><span class="nav-lbl">Me</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ ROW 2 ════ -->
+<div class="row-label">Player Directory</div>
+<div class="screens">
+
+  <!-- SCREEN 3: PLAYER DIRECTORY -->
+  <div class="screen-wrap">
+    <div class="screen-label">③ Player Directory</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">The Field · 8 Players</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll">
+        <div class="search-bar">
+          <input class="search-input" type="text" placeholder="Search players…">
+        </div>
+
+        <div class="sort-tabs">
+          <div class="sort-tab active">All</div>
+          <div class="sort-tab">Tiff HCP</div>
+          <div class="sort-tab">Wins</div>
+          <div class="sort-tab">Trips</div>
+        </div>
+
+        <div class="player-list">
+          <div class="pl-thead">
+            <div class="plth" style="text-align:left">Player</div>
+            <div class="plth">HCP</div>
+            <div class="plth">Best</div>
+            <div class="plth">Trips</div>
+          </div>
+
+          <div class="pl-row">
+            <div class="pl-player">
+              <div class="pl-avatar champ">TH</div>
+              <div class="pl-info">
+                <div class="pl-name">T. Healy</div>
+                <div class="pl-trips">7 trips · 2× champ 🏆</div>
+              </div>
+            </div>
+            <div class="plcell hcp t1">13.2</div>
+            <div class="plcell best">1st</div>
+            <div class="plcell">7</div>
+          </div>
+
+          <div class="pl-row alt">
+            <div class="pl-player">
+              <div class="pl-avatar champ">MD</div>
+              <div class="pl-info">
+                <div class="pl-name">M. Donovan</div>
+                <div class="pl-trips">7 trips · 1× champ 🏆</div>
+              </div>
+            </div>
+            <div class="plcell hcp t1">11.8</div>
+            <div class="plcell best">1st</div>
+            <div class="plcell">7</div>
+          </div>
+
+          <div class="pl-row">
+            <div class="pl-player">
+              <div class="pl-avatar">RC</div>
+              <div class="pl-info">
+                <div class="pl-name">R. Castellano</div>
+                <div class="pl-trips">5 trips · 1× champ 🏆</div>
+              </div>
+            </div>
+            <div class="plcell hcp t1">8.4</div>
+            <div class="plcell best">1st</div>
+            <div class="plcell">5</div>
+          </div>
+
+          <div class="pl-row alt">
+            <div class="pl-player">
+              <div class="pl-avatar">KM</div>
+              <div class="pl-info">
+                <div class="pl-name">K. Morales</div>
+                <div class="pl-trips">6 trips</div>
+              </div>
+            </div>
+            <div class="plcell hcp t1">9.4</div>
+            <div class="plcell best">2nd</div>
+            <div class="plcell">6</div>
+          </div>
+
+          <div class="pl-row">
+            <div class="pl-player">
+              <div class="pl-avatar">JP</div>
+              <div class="pl-info">
+                <div class="pl-name">J. Pruitt</div>
+                <div class="pl-trips">4 trips</div>
+              </div>
+            </div>
+            <div class="plcell hcp t2">19.6</div>
+            <div class="plcell best">3rd</div>
+            <div class="plcell">4</div>
+          </div>
+
+          <div class="pl-row alt">
+            <div class="pl-player">
+              <div class="pl-avatar champ">BW</div>
+              <div class="pl-info">
+                <div class="pl-name">B. Wallace</div>
+                <div class="pl-trips">4 trips · 1× champ 🏆</div>
+              </div>
+            </div>
+            <div class="plcell hcp t2">22.6</div>
+            <div class="plcell best">1st</div>
+            <div class="plcell">4</div>
+          </div>
+
+          <div class="pl-row">
+            <div class="pl-player">
+              <div class="pl-avatar">DP</div>
+              <div class="pl-info">
+                <div class="pl-name">D. Park</div>
+                <div class="pl-trips">2 trips</div>
+              </div>
+            </div>
+            <div class="plcell hcp t3">18.0</div>
+            <div class="plcell best">3rd</div>
+            <div class="plcell">2</div>
+          </div>
+
+          <div class="pl-row alt">
+            <div class="pl-player">
+              <div class="pl-avatar">LS</div>
+              <div class="pl-info">
+                <div class="pl-name">L. Santos</div>
+                <div class="pl-trips">1 trip · newcomer</div>
+              </div>
+            </div>
+            <div class="plcell hcp t3">14.0</div>
+            <div class="plcell best">5th</div>
+            <div class="plcell">1</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-ico">🏠</span><span class="nav-lbl">Home</span></div>
+        <div class="nav-item active"><span class="nav-ico">👥</span><span class="nav-lbl">Players</span></div>
+        <div class="nav-item"><span class="nav-ico">📜</span><span class="nav-lbl">History</span></div>
+        <div class="nav-item"><span class="nav-ico">👤</span><span class="nav-lbl">Me</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

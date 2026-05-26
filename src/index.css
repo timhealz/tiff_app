@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --sc-green:      #1a4a2a;
+  --sc-green-mid:  #235c35;
+  --sc-green-lite: #2e7d47;
+  --sc-cream:      #f2ede3;
+  --sc-cream-dark: #e8e1d4;
+  --sc-cream-mid:  #ddd5c4;
+  --sc-rule:       #c8bfa8;
+  --gold:          #b8962e;
+  --gold-lt:       #d4b45a;
+  --ink:           #1a1a16;
+  --ink-mid:       #4a4a40;
+  --ink-lt:        #7a7a6a;
+
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--sc-green);
+  color: var(--sc-cream);
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}

@@ -1,0 +1,202 @@
+.wrap {
+  background: var(--sc-cream);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loading {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(242,237,227,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 0;
+  gap: 8px;
+}
+
+.emptyIco { font-size: 2rem; }
+
+.emptyMsg {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(242,237,227,0.4);
+}
+
+/* ── Banner ── */
+.banner {
+  background: var(--sc-cream-dark);
+  border-bottom: 2px solid var(--sc-green);
+  padding: 7px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bannerTitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-mid);
+}
+
+.dayTabs { display: flex; gap: 2px; }
+
+.dtab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  padding: 3px 7px;
+  border: 1px solid var(--sc-rule);
+  color: var(--ink-lt);
+  cursor: pointer;
+  background: var(--sc-cream);
+  border-radius: 3px;
+}
+
+.dtabActive {
+  background: var(--sc-green);
+  color: var(--sc-cream);
+  border-color: var(--sc-green);
+  font-weight: 600;
+}
+
+/* ── Column header ── */
+.thead {
+  display: grid;
+  grid-template-columns: 28px 1fr 48px 48px 40px;
+  background: var(--sc-green);
+  padding: 6px 12px;
+  border-bottom: 2px solid var(--gold);
+}
+
+.th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(242,237,227,0.7);
+  text-align: center;
+}
+
+.thLeft { text-align: left; }
+
+/* ── Rows ── */
+.row {
+  display: grid;
+  grid-template-columns: 28px 1fr 48px 48px 40px;
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  background: var(--sc-cream);
+  min-height: 56px;
+}
+
+.alt { background: var(--sc-cream-dark); }
+
+.lead {
+  background: linear-gradient(90deg, rgba(26,74,42,0.06) 0%, var(--sc-cream) 60%);
+}
+
+.leadAlt {
+  background: linear-gradient(90deg, rgba(26,74,42,0.08) 0%, var(--sc-cream-dark) 60%);
+}
+
+/* ── Position ── */
+.pos {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-mid);
+  line-height: 1;
+}
+
+.pos1 { color: var(--gold); font-size: 1.1rem; }
+
+/* ── Player cell ── */
+.player { padding-right: 4px; }
+
+.name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hcp {
+  display: inline-block;
+  margin-top: 2px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  padding: 1px 5px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.t1 { background: rgba(184,150,46,0.15); color: var(--gold);          border: 1px solid rgba(184,150,46,0.3); }
+.t2 { background: rgba(26,74,42,0.1);    color: var(--sc-green-lite); border: 1px solid rgba(26,74,42,0.2); }
+.t3 { background: rgba(0,0,0,0.06);      color: var(--ink-lt);        border: 1px solid var(--sc-rule); }
+
+/* ── Score cells ── */
+.cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink);
+}
+
+.under { color: #1a6b2a; }
+.over  { color: #b83030; }
+.even  { color: var(--ink-mid); font-weight: 500; }
+.thru  { font-size: 0.62rem; color: var(--ink-lt); font-weight: 400; }
+
+/* ── Empty / pre-tournament ── */
+.noScores {
+  padding: 24px 16px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-lt);
+  background: var(--sc-cream);
+}
+
+/* ── Legend ── */
+.legend {
+  display: flex;
+  gap: 12px;
+  padding: 7px 12px;
+  background: var(--sc-cream-dark);
+  border-top: 1px solid var(--sc-cream-mid);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ldot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}

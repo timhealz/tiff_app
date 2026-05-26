@@ -1,0 +1,13 @@
+/* App-level resets — component styles live in *.module.css */
+.app-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(242,237,227,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background: var(--sc-green);
+}

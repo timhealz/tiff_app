@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Tiff – Mockup v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  /* Scorecard palette */
+  --sc-green:      #1a4a2a;
+  --sc-green-mid:  #235c35;
+  --sc-green-lite: #2e7d47;
+  --sc-cream:      #f2ede3;
+  --sc-cream-dark: #e8e1d4;
+  --sc-cream-mid:  #ddd5c4;
+  --sc-rule:       #c8bfa8;
+
+  /* Score colors — exact from reference */
+  --eagle:   #4a9e4a;
+  --birdie:  #a8d8a8;
+  --par:     #f2ede3;
+  --bogey:   #f5c6c6;
+  --double:  #e87070;
+  --triple:  #c0392b;
+
+  /* Text */
+  --ink:     #1a1a16;
+  --ink-mid: #4a4a40;
+  --ink-lt:  #7a7a6a;
+
+  /* Gold accent */
+  --gold:    #b8962e;
+  --gold-lt: #d4b45a;
+}
+
+body {
+  background: #111a13;
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 48px 20px 80px;
+  color: var(--sc-cream);
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+  letter-spacing: 0.08em;
+  color: var(--sc-cream);
+  line-height: 1;
+}
+.page-title span { color: var(--gold); }
+.page-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: #5a8a5a;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+.version-tag {
+  display: inline-block;
+  margin-top: 12px;
+  background: rgba(184,150,46,0.1);
+  border: 1px solid rgba(184,150,46,0.3);
+  border-radius: 3px;
+  padding: 4px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── ROW LABELS ── */
+.row-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #4a7a4a;
+  text-align: center;
+  margin: 44px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.row-label::before,.row-label::after {
+  content:''; flex:1;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(74,122,74,0.4), transparent);
+}
+
+/* ── SCREENS ── */
+.screens {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.screen-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.screen-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #5a9a5a;
+}
+
+/* ── PHONE SHELL ── */
+.phone {
+  width: 300px;
+  background: var(--sc-cream);
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 0 0 5px #111,
+    0 32px 80px rgba(0,0,0,0.75),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+}
+
+/* ── STATUS BAR ── */
+.status-bar {
+  height: 36px;
+  background: var(--sc-green);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  flex-shrink: 0;
+}
+.sb-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--sc-cream);
+  font-weight: 500;
+}
+.sb-icons { font-size: 0.58rem; color: var(--sc-cream); display:flex; gap:4px; }
+
+/* ── APP HEADER ── */
+.app-header {
+  background: var(--sc-green);
+  padding: 10px 16px 14px;
+  position: relative;
+  flex-shrink: 0;
+}
+.app-header::after {
+  content:'';
+  position: absolute;
+  bottom:0; left:0; right:0;
+  height: 3px;
+  background: var(--gold);
+}
+.app-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
+  color: var(--sc-cream);
+  line-height: 1;
+}
+.app-name span { color: var(--gold); }
+.app-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  color: rgba(242,237,227,0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-top: 3px;
+}
+.header-row { display:flex; justify-content:space-between; align-items:flex-end; }
+.live-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(184,150,46,0.15);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  padding: 3px 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.54rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.live-dot {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: blink 1.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* ── SCREEN CONTENT ── */
+.screen-content { flex:1; overflow-y:auto; background: var(--sc-cream); }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  display: flex;
+  background: var(--sc-green);
+  border-top: 3px solid var(--gold);
+  padding: 8px 0 10px;
+  flex-shrink: 0;
+}
+.nav-item {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; gap:3px; cursor:pointer;
+}
+.nav-ico { font-size: 0.95rem; }
+.nav-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.48rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(242,237,227,0.35);
+}
+.nav-item.active .nav-lbl { color: var(--gold); }
+
+/* ═══════════════════════════════════════
+   SCREEN 1 — LEADERBOARD
+═══════════════════════════════════════ */
+.lb-banner {
+  background: var(--sc-cream-dark);
+  border-bottom: 2px solid var(--sc-green);
+  padding: 7px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lb-banner-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-mid);
+}
+.day-tabs { display:flex; gap:2px; }
+.dtab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  padding: 3px 7px;
+  border: 1px solid var(--sc-rule);
+  color: var(--ink-lt);
+  cursor: pointer;
+  background: var(--sc-cream);
+}
+.dtab:first-child { border-radius: 3px 0 0 3px; }
+.dtab:last-child  { border-radius: 0 3px 3px 0; }
+.dtab.active {
+  background: var(--sc-green);
+  color: var(--sc-cream);
+  border-color: var(--sc-green);
+  font-weight: 600;
+}
+
+/* Table header */
+.lb-thead {
+  display: grid;
+  grid-template-columns: 24px 1fr 42px 42px 40px;
+  background: var(--sc-green);
+  padding: 6px 12px;
+  border-bottom: 2px solid var(--gold);
+}
+.lbth {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(242,237,227,0.7);
+  text-align: center;
+}
+.lbth:nth-child(2) { text-align:left; }
+
+/* Row */
+.lb-row {
+  display: grid;
+  grid-template-columns: 24px 1fr 42px 42px 40px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  background: var(--sc-cream);
+}
+.lb-row.lead {
+  background: linear-gradient(90deg, rgba(26,74,42,0.06) 0%, var(--sc-cream) 60%);
+}
+.lb-row.alt { background: var(--sc-cream-dark); }
+.lb-row.alt.lead {
+  background: linear-gradient(90deg, rgba(26,74,42,0.08) 0%, var(--sc-cream-dark) 60%);
+}
+
+.lb-pos {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-mid);
+}
+.lb-pos.p1 { color: var(--gold); }
+
+.lb-player { padding-right: 4px; }
+.lb-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.lb-hcp {
+  display: inline-block;
+  margin-top: 2px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  padding: 1px 5px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.lb-hcp.t1 { background: rgba(184,150,46,0.15); color: var(--gold); border:1px solid rgba(184,150,46,0.3); }
+.lb-hcp.t2 { background: rgba(26,74,42,0.1); color: var(--sc-green-lite); border:1px solid rgba(26,74,42,0.2); }
+.lb-hcp.t3 { background: rgba(0,0,0,0.06); color: var(--ink-lt); border:1px solid var(--sc-rule); }
+
+.lbcell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--ink);
+}
+.lbcell.under { color: #1a6b2a; font-weight: 600; }
+.lbcell.over  { color: #b83030; font-weight: 600; }
+.lbcell.even  { color: var(--ink-mid); }
+.lbcell.thru  { font-size: 0.58rem; color: var(--ink-lt); font-weight: 400; }
+
+.lb-divider {
+  background: var(--sc-green);
+  padding: 4px 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(242,237,227,0.6);
+  text-align: center;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+}
+
+.hcp-legend {
+  display: flex;
+  gap: 12px;
+  padding: 7px 12px;
+  background: var(--sc-cream-dark);
+  border-top: 1px solid var(--sc-cream-mid);
+}
+.legend-item {
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ldot { width:8px; height:8px; border-radius:2px; }
+
+/* ═══════════════════════════════════════
+   SCREEN 2 — SCORECARD ENTRY
+   Landscape-ish, all 4 players per hole
+═══════════════════════════════════════ */
+.sc-banner {
+  background: var(--sc-cream-dark);
+  border-bottom: 2px solid var(--sc-green);
+  padding: 7px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sc-banner-left {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-mid);
+}
+.sc-banner-left strong { color: var(--ink); }
+
+/* Player header strip */
+.player-strip {
+  display: grid;
+  grid-template-columns: 48px repeat(4, 1fr);
+  background: var(--sc-green);
+  border-bottom: 2px solid var(--gold);
+  padding: 0;
+}
+.ps-hole-hdr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: rgba(242,237,227,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 7px 6px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.ps-player {
+  padding: 5px 4px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.ps-player:last-child { border-right: none; }
+.ps-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--sc-cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ps-hcp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.48rem;
+  color: var(--gold);
+  margin-top: 1px;
+}
+
+/* Hole rows */
+.sc-row {
+  display: grid;
+  grid-template-columns: 48px repeat(4, 1fr);
+  border-bottom: 1px solid var(--sc-cream-mid);
+}
+.sc-row.alt { background: var(--sc-cream-dark); }
+.sc-row.front-back-sep { border-bottom: 2px solid var(--sc-green); }
+
+.sc-hole-info {
+  background: var(--sc-green);
+  padding: 7px 4px;
+  text-align: center;
+  border-right: 2px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sc-hole-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  color: var(--sc-cream);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.sc-par-si {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.45rem;
+  color: rgba(242,237,227,0.5);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.sc-score-cell {
+  padding: 5px 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--sc-cream-mid);
+  cursor: pointer;
+  min-height: 42px;
+}
+.sc-score-cell:last-child { border-right: none; }
+
+.score-box {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+}
+.score-box.eagle  { background: var(--eagle); color: white; border-color: #2a7a2a; }
+.score-box.birdie { background: var(--birdie); color: #1a4a1a; border-color: #7ab87a; }
+.score-box.par    { background: var(--sc-cream); color: var(--ink); border-color: var(--sc-rule); }
+.score-box.bogey  { background: var(--bogey); color: #7a1a1a; border-color: #e09090; }
+.score-box.double { background: var(--double); color: white; border-color: #b84040; }
+.score-box.empty  { background: transparent; border: 1.5px dashed var(--sc-rule); color: var(--sc-rule); font-size:1rem; }
+.score-box.active { border-color: var(--sc-green) !important; box-shadow: 0 0 0 2px rgba(26,74,42,0.2); }
+
+/* Totals row */
+.sc-totals-row {
+  display: grid;
+  grid-template-columns: 48px repeat(4, 1fr);
+  background: var(--sc-green);
+  border-top: 2px solid var(--gold);
+}
+.sc-tot-label {
+  padding: 7px 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(242,237,227,0.6);
+  text-align: center;
+  border-right: 2px solid var(--gold);
+}
+.sc-tot-val {
+  padding: 7px 4px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sc-cream);
+  border-right: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sc-tot-val:last-child { border-right: none; }
+.sc-tot-net {
+  font-size: 0.5rem;
+  color: var(--gold);
+  margin-top: 1px;
+}
+
+.sc-legend {
+  display: flex;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--sc-cream-dark);
+  border-top: 1px solid var(--sc-cream-mid);
+  flex-wrap: wrap;
+}
+.sc-leg-item {
+  display: flex; align-items: center; gap: 3px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.48rem;
+  color: var(--ink-lt);
+}
+.sc-leg-box {
+  width: 10px; height: 10px; border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.submit-bar {
+  padding: 10px 12px;
+  background: var(--sc-cream-dark);
+  border-top: 1px solid var(--sc-cream-mid);
+}
+.submit-btn {
+  width: 100%;
+  padding: 11px;
+  background: var(--sc-green);
+  color: var(--gold);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 3 — PLAYER HISTORY
+═══════════════════════════════════════ */
+.ph-hero {
+  background: var(--sc-green);
+  padding: 12px 14px 16px;
+  position: relative;
+}
+.ph-hero::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  background: var(--gold);
+}
+.ph-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  color: var(--sc-cream);
+}
+.ph-chips { display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+.ph-chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.54rem;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.ph-chip.tiff { background: rgba(184,150,46,0.2); color: var(--gold); border: 1px solid rgba(184,150,46,0.4); }
+.ph-chip.ghin { background: rgba(255,255,255,0.08); color: rgba(242,237,227,0.6); border: 1px solid rgba(255,255,255,0.15); }
+.ph-chip.trips { background: rgba(46,125,71,0.2); color: #7acc8a; border: 1px solid rgba(46,125,71,0.3); }
+
+.ph-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 2px solid var(--sc-green);
+}
+.ph-stat {
+  padding: 10px 8px;
+  text-align: center;
+  border-right: 1px solid var(--sc-cream-mid);
+  background: var(--sc-cream-dark);
+}
+.ph-stat:last-child { border-right: none; }
+.ph-stat-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.ph-stat-val.good { color: #1a6b2a; }
+.ph-stat-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-lt);
+  margin-top: 2px;
+}
+
+/* Sparkline */
+.ph-spark-wrap { padding: 10px 12px 4px; background: var(--sc-cream); }
+.ph-spark-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-lt);
+  margin-bottom: 6px;
+}
+.ph-spark {
+  height: 48px;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  padding: 0 0 16px;
+  position: relative;
+}
+.ph-spark::after {
+  content:''; position:absolute;
+  bottom:14px; left:0; right:0;
+  height: 1px;
+  background: var(--sc-cream-mid);
+}
+.spark-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.spark-b {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  background: var(--sc-green);
+  min-height: 3px;
+}
+.spark-b.current { background: var(--gold); }
+.spark-yr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.44rem;
+  color: var(--ink-lt);
+  margin-top: 2px;
+}
+.spark-yr.current { color: var(--gold); }
+
+/* Year history table */
+.ph-history { padding: 0 12px 12px; background: var(--sc-cream); }
+.ph-yr-hdr {
+  background: var(--sc-green);
+  color: var(--gold);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  padding: 5px 8px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ph-yr-place {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: rgba(242,237,227,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.ph-tbl-hdr {
+  display: grid;
+  grid-template-columns: 1fr 36px 36px 40px 42px;
+  gap: 2px;
+  padding: 4px 6px;
+  background: var(--sc-cream-dark);
+  border-bottom: 1px solid var(--sc-green);
+}
+.phth {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.48rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-lt);
+  text-align: center;
+}
+.phth:first-child { text-align: left; }
+
+.ph-round-row {
+  display: grid;
+  grid-template-columns: 1fr 36px 36px 40px 42px;
+  gap: 2px;
+  padding: 6px 6px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  background: var(--sc-cream);
+}
+.ph-round-row.alt { background: var(--sc-cream-dark); }
+.ph-course {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.phcell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  text-align: center;
+  color: var(--ink-mid);
+}
+.phcell.gross { color: var(--ink); font-weight: 600; }
+.phcell.good { color: #1a6b2a; }
+.phcell.bad  { color: #b83030; }
+.phcell.diff { color: var(--sc-green-lite); }
+
+/* ═══════════════════════════════════════
+   SCREEN 4 — COMMISSIONER
+═══════════════════════════════════════ */
+.comm-banner {
+  background: var(--sc-cream-dark);
+  border-bottom: 2px solid var(--sc-green);
+  padding: 7px 12px;
+}
+.comm-banner-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-mid);
+}
+
+.comm-alert {
+  margin: 10px 12px;
+  background: rgba(184,150,46,0.08);
+  border: 1px solid rgba(184,150,46,0.3);
+  border-left: 3px solid var(--gold);
+  border-radius: 3px;
+  padding: 8px 10px;
+}
+.comm-alert-hd {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+.comm-alert-body {
+  font-size: 0.68rem;
+  color: var(--ink-mid);
+  line-height: 1.5;
+  margin-top: 3px;
+}
+
+.comm-section {
+  padding: 0 12px;
+}
+.comm-sec-hdr {
+  background: var(--sc-green);
+  color: rgba(242,237,227,0.7);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 5px 8px;
+  margin-top: 8px;
+  border-left: 3px solid var(--gold);
+}
+
+.comm-row {
+  display: grid;
+  grid-template-columns: 1fr 52px 48px;
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  gap: 6px;
+  background: var(--sc-cream);
+}
+.comm-row.alt { background: var(--sc-cream-dark); }
+.comm-row.flagged { background: rgba(184,150,46,0.05); }
+
+.comm-pname {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.comm-pmeta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--ink-lt);
+  margin-top: 2px;
+}
+.comm-pmeta.warn { color: #b86020; }
+
+.comm-hcp-block { text-align: center; }
+.comm-hcp-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.46rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-lt);
+  margin-bottom: 2px;
+}
+.comm-hcp-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--sc-cream-dark);
+  border: 1.5px solid var(--sc-rule);
+  border-radius: 3px;
+  padding: 3px 6px;
+  display: inline-block;
+  min-width: 38px;
+  text-align: center;
+}
+.comm-hcp-num.override {
+  border-color: var(--gold);
+  color: #7a5500;
+  background: rgba(184,150,46,0.08);
+}
+
+.tier-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.48rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 5px;
+  border-radius: 2px;
+  text-align: center;
+}
+.tier-tag.t1 { background: rgba(184,150,46,0.15); color: var(--gold); border: 1px solid rgba(184,150,46,0.3); }
+.tier-tag.t2 { background: rgba(26,74,42,0.1); color: var(--sc-green-lite); border: 1px solid rgba(26,74,42,0.2); }
+.tier-tag.t3 { background: rgba(0,0,0,0.06); color: var(--ink-lt); border: 1px solid var(--sc-rule); }
+.tier-tag.ov { background: rgba(184,150,46,0.15); color: #9a6800; border: 1px solid rgba(184,150,46,0.4); }
+
+.lock-btn-wrap { padding: 12px; background: var(--sc-cream-dark); border-top: 1px solid var(--sc-cream-mid); }
+.lock-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--sc-green);
+  color: var(--gold);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 5 — LOGIN
+═══════════════════════════════════════ */
+.login-wrap {
+  background: var(--sc-green);
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  position: relative;
+  overflow: hidden;
+}
+/* subtle texture */
+.login-wrap::before {
+  content:'';
+  position: absolute; inset:0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 32px,
+    rgba(255,255,255,0.015) 32px,
+    rgba(255,255,255,0.015) 33px
+  );
+}
+.login-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.8rem;
+  letter-spacing: 0.1em;
+  color: var(--sc-cream);
+  line-height: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.login-logo-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-align: center;
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+.login-rule {
+  width: 100%;
+  height: 3px;
+  background: var(--gold);
+  margin: 24px 0;
+  position: relative;
+  z-index: 1;
+}
+.login-body { width: 100%; position: relative; z-index: 1; }
+.login-tagline {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: rgba(242,237,227,0.55);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.login-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(242,237,227,0.6);
+  margin-bottom: 6px;
+}
+.login-input {
+  width: 100%;
+  background: rgba(242,237,227,0.07);
+  border: 1.5px solid rgba(184,150,46,0.4);
+  border-radius: 3px;
+  padding: 12px 14px;
+  color: var(--sc-cream);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  outline: none;
+  margin-bottom: 14px;
+}
+.login-input::placeholder { color: rgba(242,237,227,0.2); }
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--gold);
+  color: var(--sc-green);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.login-note {
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  color: rgba(242,237,227,0.25);
+  margin-top: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+}
+.login-note strong { color: rgba(242,237,227,0.45); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-title">THE <span>TIFF</span></div>
+  <div class="page-sub">UI Mockup v3 · Scorecard Aesthetic · Net Stroke Play</div>
+  <div class="version-tag">5 screens · Tiff Handicap System · Foursome Scorecard Entry</div>
+</div>
+
+<!-- ════ ROW 1 ════ -->
+<div class="row-label">Tournament Views</div>
+<div class="screens">
+
+  <!-- SCREEN 1: LEADERBOARD -->
+  <div class="screen-wrap">
+    <div class="screen-label">① Live Leaderboard</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">2025 · Pebble Beach</div>
+          </div>
+          <div class="live-pill"><div class="live-dot"></div>Live</div>
+        </div>
+      </div>
+      <div class="screen-content">
+        <div class="lb-banner">
+          <span class="lb-banner-title">Net Stroke · Cumulative</span>
+          <div class="day-tabs">
+            <div class="dtab">D1</div>
+            <div class="dtab">D2</div>
+            <div class="dtab active">All</div>
+          </div>
+        </div>
+        <div class="lb-thead">
+          <span class="lbth"></span>
+          <span class="lbth" style="text-align:left">Player</span>
+          <span class="lbth">Net</span>
+          <span class="lbth">+/−</span>
+          <span class="lbth">Thru</span>
+        </div>
+
+        <div class="lb-row lead">
+          <div class="lb-pos p1">🏆</div>
+          <div class="lb-player">
+            <div class="lb-name">T. Healy</div>
+            <span class="lb-hcp t1">Tiff 13.2</span>
+          </div>
+          <div class="lbcell">207</div>
+          <div class="lbcell under">−9</div>
+          <div class="lbcell thru">F</div>
+        </div>
+        <div class="lb-row alt">
+          <div class="lb-pos">2</div>
+          <div class="lb-player">
+            <div class="lb-name">M. Donovan</div>
+            <span class="lb-hcp t1">Tiff 11.8</span>
+          </div>
+          <div class="lbcell">209</div>
+          <div class="lbcell under">−7</div>
+          <div class="lbcell thru">F</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-pos">3</div>
+          <div class="lb-player">
+            <div class="lb-name">R. Castellano</div>
+            <span class="lb-hcp t2">Tiff* 8.4</span>
+          </div>
+          <div class="lbcell">211</div>
+          <div class="lbcell under">−5</div>
+          <div class="lbcell thru">16▸</div>
+        </div>
+        <div class="lb-row alt">
+          <div class="lb-pos">4</div>
+          <div class="lb-player">
+            <div class="lb-name">J. Pruitt</div>
+            <span class="lb-hcp t2">Tiff* 22.0</span>
+          </div>
+          <div class="lbcell">213</div>
+          <div class="lbcell even">E</div>
+          <div class="lbcell thru">14▸</div>
+        </div>
+        <div class="lb-divider">· Day 3 in progress ·</div>
+        <div class="lb-row">
+          <div class="lb-pos">5</div>
+          <div class="lb-player">
+            <div class="lb-name">B. Wallace</div>
+            <span class="lb-hcp t3">GHIN 22.0</span>
+          </div>
+          <div class="lbcell">215</div>
+          <div class="lbcell over">+2</div>
+          <div class="lbcell thru">F</div>
+        </div>
+        <div class="lb-row alt">
+          <div class="lb-pos">6</div>
+          <div class="lb-player">
+            <div class="lb-name">D. Park</div>
+            <span class="lb-hcp t3">Cmsr 18</span>
+          </div>
+          <div class="lbcell">219</div>
+          <div class="lbcell over">+6</div>
+          <div class="lbcell thru">F</div>
+        </div>
+
+        <div class="hcp-legend">
+          <div class="legend-item"><div class="ldot" style="background:var(--gold)"></div>Tiff Est.</div>
+          <div class="legend-item"><div class="ldot" style="background:var(--sc-green-lite)"></div>Tiff Prov.</div>
+          <div class="legend-item"><div class="ldot" style="background:var(--sc-rule)"></div>GHIN/Cmsr</div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item active"><span class="nav-ico">🏆</span><span class="nav-lbl">Board</span></div>
+        <div class="nav-item"><span class="nav-ico">⛳</span><span class="nav-lbl">Card</span></div>
+        <div class="nav-item"><span class="nav-ico">📜</span><span class="nav-lbl">History</span></div>
+        <div class="nav-item"><span class="nav-ico">👤</span><span class="nav-lbl">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: FOURSOME SCORECARD -->
+  <div class="screen-wrap">
+    <div class="screen-label">② Foursome Scorecard</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">Day 2 · Spyglass Hill</div>
+          </div>
+          <div class="live-pill"><div class="live-dot"></div>Saving</div>
+        </div>
+      </div>
+      <div class="screen-content">
+        <div class="sc-banner">
+          <div class="sc-banner-left">Keeper: <strong>T. Healy</strong></div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:var(--ink-lt);text-transform:uppercase;letter-spacing:0.1em">Par 72 · CR 75.4 · Sl 147</div>
+        </div>
+
+        <!-- Player header -->
+        <div class="player-strip">
+          <div class="ps-hole-hdr">Hole</div>
+          <div class="ps-player"><div class="ps-name">T. Healy</div><div class="ps-hcp">Hcp 13</div></div>
+          <div class="ps-player"><div class="ps-name">M. Don.</div><div class="ps-hcp">Hcp 12</div></div>
+          <div class="ps-player"><div class="ps-name">R. Cast.</div><div class="ps-hcp">Hcp 8</div></div>
+          <div class="ps-player"><div class="ps-name">J. Pruit</div><div class="ps-hcp">Hcp 22</div></div>
+        </div>
+
+        <!-- Hole rows -->
+        <div class="sc-row">
+          <div class="sc-hole-info"><div class="sc-hole-num">1</div><div class="sc-par-si">Par 4<br>SI 7</div></div>
+          <div class="sc-score-cell"><div class="score-box birdie">3</div></div>
+          <div class="sc-score-cell"><div class="score-box par">4</div></div>
+          <div class="sc-score-cell"><div class="score-box bogey">5</div></div>
+          <div class="sc-score-cell"><div class="score-box par">4</div></div>
+        </div>
+        <div class="sc-row alt">
+          <div class="sc-hole-info"><div class="sc-hole-num">2</div><div class="sc-par-si">Par 3<br>SI 15</div></div>
+          <div class="sc-score-cell"><div class="score-box par">3</div></div>
+          <div class="sc-score-cell"><div class="score-box birdie">2</div></div>
+          <div class="sc-score-cell"><div class="score-box par">3</div></div>
+          <div class="sc-score-cell"><div class="score-box bogey">4</div></div>
+        </div>
+        <div class="sc-row">
+          <div class="sc-hole-info"><div class="sc-hole-num">3</div><div class="sc-par-si">Par 5<br>SI 3</div></div>
+          <div class="sc-score-cell"><div class="score-box double">7</div></div>
+          <div class="sc-score-cell"><div class="score-box par">5</div></div>
+          <div class="sc-score-cell"><div class="score-box birdie">4</div></div>
+          <div class="sc-score-cell"><div class="score-box par">5</div></div>
+        </div>
+        <div class="sc-row alt">
+          <div class="sc-hole-info"><div class="sc-hole-num">4</div><div class="sc-par-si">Par 4<br>SI 11</div></div>
+          <div class="sc-score-cell"><div class="score-box bogey">5</div></div>
+          <div class="sc-score-cell"><div class="score-box bogey">5</div></div>
+          <div class="sc-score-cell"><div class="score-box par">4</div></div>
+          <div class="sc-score-cell"><div class="score-box double">6</div></div>
+        </div>
+        <div class="sc-row front-back-sep">
+          <div class="sc-hole-info"><div class="sc-hole-num">5</div><div class="sc-par-si">Par 4<br>SI 1</div></div>
+          <div class="sc-score-cell"><div class="score-box empty active">+</div></div>
+          <div class="sc-score-cell"><div class="score-box empty">+</div></div>
+          <div class="sc-score-cell"><div class="score-box empty">+</div></div>
+          <div class="sc-score-cell"><div class="score-box empty">+</div></div>
+        </div>
+
+        <div class="sc-totals-row">
+          <div class="sc-tot-label">Thru 4</div>
+          <div class="sc-tot-val">18<div class="sc-tot-net">net 15</div></div>
+          <div class="sc-tot-val">16<div class="sc-tot-net">net 14</div></div>
+          <div class="sc-tot-val">16<div class="sc-tot-net">net 15</div></div>
+          <div class="sc-tot-val">19<div class="sc-tot-net">net 15</div></div>
+        </div>
+
+        <div class="sc-legend">
+          <div class="sc-leg-item"><div class="sc-leg-box" style="background:var(--eagle)"></div>Eagle</div>
+          <div class="sc-leg-item"><div class="sc-leg-box" style="background:var(--birdie)"></div>Birdie</div>
+          <div class="sc-leg-item"><div class="sc-leg-box" style="background:var(--par);border-color:var(--sc-rule)"></div>Par</div>
+          <div class="sc-leg-item"><div class="sc-leg-box" style="background:var(--bogey)"></div>Bogey</div>
+          <div class="sc-leg-item"><div class="sc-leg-box" style="background:var(--double)"></div>Double+</div>
+        </div>
+
+        <div class="submit-bar">
+          <button class="submit-btn">Submit Round ✓</button>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-ico">🏆</span><span class="nav-lbl">Board</span></div>
+        <div class="nav-item active"><span class="nav-ico">⛳</span><span class="nav-lbl">Card</span></div>
+        <div class="nav-item"><span class="nav-ico">📜</span><span class="nav-lbl">History</span></div>
+        <div class="nav-item"><span class="nav-ico">👤</span><span class="nav-lbl">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ ROW 2 ════ -->
+<div class="row-label">Historical &amp; Admin Views</div>
+<div class="screens">
+
+  <!-- SCREEN 3: PLAYER HISTORY -->
+  <div class="screen-wrap">
+    <div class="screen-label">③ Player History</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">Player Record</div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-content">
+        <div class="ph-hero">
+          <div class="ph-name">T. Healy</div>
+          <div class="ph-chips">
+            <span class="ph-chip tiff">Tiff HCP 13.2</span>
+            <span class="ph-chip ghin">GHIN 15.4</span>
+            <span class="ph-chip trips">7 Trips</span>
+          </div>
+        </div>
+
+        <div class="ph-stats">
+          <div class="ph-stat">
+            <div class="ph-stat-val">88.4</div>
+            <div class="ph-stat-lbl">Avg Gross</div>
+          </div>
+          <div class="ph-stat">
+            <div class="ph-stat-val good">−3.1</div>
+            <div class="ph-stat-lbl">Avg Net</div>
+          </div>
+          <div class="ph-stat">
+            <div class="ph-stat-val">21</div>
+            <div class="ph-stat-lbl">Rounds</div>
+          </div>
+        </div>
+
+        <div class="ph-spark-wrap">
+          <div class="ph-spark-title">Avg gross score by year</div>
+          <div class="ph-spark">
+            <div class="spark-col"><div class="spark-b" style="height:55%"></div><div class="spark-yr">2019</div></div>
+            <div class="spark-col"><div class="spark-b" style="height:65%"></div><div class="spark-yr">2020</div></div>
+            <div class="spark-col"><div class="spark-b" style="height:50%"></div><div class="spark-yr">2021</div></div>
+            <div class="spark-col"><div class="spark-b" style="height:45%"></div><div class="spark-yr">2022</div></div>
+            <div class="spark-col"><div class="spark-b" style="height:40%"></div><div class="spark-yr">2023</div></div>
+            <div class="spark-col"><div class="spark-b" style="height:35%"></div><div class="spark-yr">2024</div></div>
+            <div class="spark-col"><div class="spark-b current" style="height:28%"></div><div class="spark-yr current">2025</div></div>
+          </div>
+        </div>
+
+        <div class="ph-history">
+          <!-- 2025 -->
+          <div class="ph-yr-hdr">2025 · Pebble Beach <span class="ph-yr-place">1st place</span></div>
+          <div class="ph-tbl-hdr">
+            <div class="phth">Course</div><div class="phth">Grs</div>
+            <div class="phth">Net</div><div class="phth">vs Par</div><div class="phth">Diff</div>
+          </div>
+          <div class="ph-round-row">
+            <div class="ph-course">Pebble Beach</div>
+            <div class="phcell gross">84</div>
+            <div class="phcell good">71</div>
+            <div class="phcell good">−1</div>
+            <div class="phcell diff">12.4</div>
+          </div>
+          <div class="ph-round-row alt" style="opacity:0.5">
+            <div class="ph-course">Spyglass Hill</div>
+            <div class="phcell gross">—</div>
+            <div class="phcell">—</div>
+            <div class="phcell">—</div>
+            <div class="phcell diff">—</div>
+          </div>
+
+          <!-- 2024 -->
+          <div class="ph-yr-hdr">2024 · Bandon Dunes <span class="ph-yr-place">3rd place</span></div>
+          <div class="ph-round-row">
+            <div class="ph-course">Bandon Dunes</div>
+            <div class="phcell gross">86</div>
+            <div class="phcell good">73</div>
+            <div class="phcell bad">+1</div>
+            <div class="phcell diff">13.8</div>
+          </div>
+          <div class="ph-round-row alt">
+            <div class="ph-course">Pacific Dunes</div>
+            <div class="phcell gross">91</div>
+            <div class="phcell">78</div>
+            <div class="phcell bad">+6</div>
+            <div class="phcell diff">15.2</div>
+          </div>
+          <div class="ph-round-row">
+            <div class="ph-course">Old Macdonald</div>
+            <div class="phcell gross">88</div>
+            <div class="phcell good">75</div>
+            <div class="phcell bad">+3</div>
+            <div class="phcell diff">14.1</div>
+          </div>
+
+          <!-- 2023 -->
+          <div class="ph-yr-hdr">2023 · Pinehurst <span class="ph-yr-place">2nd place</span></div>
+          <div class="ph-round-row">
+            <div class="ph-course">Pinehurst No. 2</div>
+            <div class="phcell gross">89</div>
+            <div class="phcell">76</div>
+            <div class="phcell bad">+4</div>
+            <div class="phcell diff">14.9</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-ico">🏆</span><span class="nav-lbl">Board</span></div>
+        <div class="nav-item"><span class="nav-ico">⛳</span><span class="nav-lbl">Card</span></div>
+        <div class="nav-item active"><span class="nav-ico">📜</span><span class="nav-lbl">History</span></div>
+        <div class="nav-item"><span class="nav-ico">👤</span><span class="nav-lbl">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: COMMISSIONER -->
+  <div class="screen-wrap">
+    <div class="screen-label">④ Commissioner Dashboard</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">Commissioner · 2025 Setup</div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-content">
+        <div class="comm-banner">
+          <div class="comm-banner-title">Pre-Tournament · Handicap Review</div>
+        </div>
+
+        <div class="comm-alert">
+          <div class="comm-alert-hd">⚠ 2 Items Need Attention</div>
+          <div class="comm-alert-body">J. Pruitt: Tiff history (22.0) vs GHIN (29.0) — override applied. D. Park: no GHIN on file.</div>
+        </div>
+
+        <div class="comm-section">
+          <div class="comm-sec-hdr">Tier 1 — Established (5+ Tiff rounds)</div>
+          <div class="comm-row">
+            <div><div class="comm-pname">T. Healy</div><div class="comm-pmeta">21 rounds · Tiff 13.2 / GHIN 15.4</div></div>
+            <div class="comm-hcp-block"><div class="comm-hcp-lbl">Starting</div><div class="comm-hcp-num">13.2</div></div>
+            <div class="tier-tag t1">Est.</div>
+          </div>
+          <div class="comm-row alt">
+            <div><div class="comm-pname">M. Donovan</div><div class="comm-pmeta">18 rounds · Tiff 11.8 / GHIN 12.1</div></div>
+            <div class="comm-hcp-block"><div class="comm-hcp-lbl">Starting</div><div class="comm-hcp-num">11.8</div></div>
+            <div class="tier-tag t1">Est.</div>
+          </div>
+
+          <div class="comm-sec-hdr" style="margin-top:6px">Tier 2 — Provisional (3–4 rounds)</div>
+          <div class="comm-row">
+            <div><div class="comm-pname">R. Castellano</div><div class="comm-pmeta">9 rounds · Tiff 8.4 / GHIN 8.7</div></div>
+            <div class="comm-hcp-block"><div class="comm-hcp-lbl">Starting</div><div class="comm-hcp-num">8.4</div></div>
+            <div class="tier-tag t2">Prov.</div>
+          </div>
+          <div class="comm-row alt flagged">
+            <div><div class="comm-pname">J. Pruitt</div><div class="comm-pmeta warn">⚠ Tiff 17.1 vs GHIN 29.0</div></div>
+            <div class="comm-hcp-block"><div class="comm-hcp-lbl">Override</div><div class="comm-hcp-num override">22.0</div></div>
+            <div class="tier-tag ov">Ovrd</div>
+          </div>
+
+          <div class="comm-sec-hdr" style="margin-top:6px">Tier 3 — Commissioner Assigned</div>
+          <div class="comm-row">
+            <div><div class="comm-pname">B. Wallace</div><div class="comm-pmeta">1st Tiff · GHIN 22.0</div></div>
+            <div class="comm-hcp-block"><div class="comm-hcp-lbl">Starting</div><div class="comm-hcp-num">22.0</div></div>
+            <div class="tier-tag t3">New</div>
+          </div>
+          <div class="comm-row alt">
+            <div><div class="comm-pname">D. Park</div><div class="comm-pmeta warn">⚠ No GHIN on file</div></div>
+            <div class="comm-hcp-block"><div class="comm-hcp-lbl">Manual</div><div class="comm-hcp-num override">18.0</div></div>
+            <div class="tier-tag t3">Cmsr</div>
+          </div>
+        </div>
+
+        <div class="lock-btn-wrap">
+          <button class="lock-btn">🔒 Lock &amp; Start Tournament</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: LOGIN -->
+  <div class="screen-wrap">
+    <div class="screen-label">⑤ Magic Link Login</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="login-wrap">
+        <div class="login-logo">THE TIFF</div>
+        <div class="login-logo-sub">Annual Golf Classic</div>
+        <div class="login-rule"></div>
+        <div class="login-body">
+          <p class="login-tagline">Seven years of history.<br>One leaderboard to rule them all.</p>
+          <div class="login-label">Email Address</div>
+          <input class="login-input" type="email" placeholder="your@email.com">
+          <button class="login-btn">SEND MAGIC LINK →</button>
+          <div class="login-note">
+            No password needed.<br>
+            <strong>One tap from your inbox.</strong><br>
+            Links expire after 24 hours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
