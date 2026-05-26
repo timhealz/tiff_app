@@ -33,7 +33,10 @@ export function useAuth() {
   }
 
   async function signIn(email) {
-    return supabase.auth.signInWithOtp({ email })
+    return supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: window.location.origin },
+    })
   }
 
   async function signOut() {
