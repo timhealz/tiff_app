@@ -143,8 +143,6 @@ export default function OffSeason({ upcoming }) {
             return diff === 0 ? 'E' : diff > 0 ? `+${diff}` : String(diff)
           }
 
-          const champVsPar = vsPar(champ)
-
           return (
             <div key={t.id} className={s.champCard}>
               <Link to={`/history/${t.year}`} className={s.champCardTop}>
@@ -166,7 +164,7 @@ export default function OffSeason({ upcoming }) {
                       <div className={s.champCardWinnerName}>—</div>
                     )}
                   </div>
-                  {champVsPar && <div className={s.champCardNet}>{champVsPar}</div>}
+                  {vsPar(champ) && <div className={s.champCardNet}>{vsPar(champ)}</div>}
                 </div>
                 {others.length > 0 && (
                   <div className={s.champCardPodium}>
@@ -176,9 +174,7 @@ export default function OffSeason({ upcoming }) {
                         <Link to={`/players/${r.player_id}`} className={s.champCardPodName}>
                           {r.players?.full_name ?? r.players?.name ?? '—'}
                         </Link>
-                        {vsPar(r) && (
-                          <span className={s.champCardPodNet}>{vsPar(r)}</span>
-                        )}
+                        {vsPar(r) && <span className={s.champCardPodNet}>{vsPar(r)}</span>}
                       </div>
                     ))}
                   </div>

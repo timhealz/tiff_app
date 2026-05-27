@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePlayers } from '../../hooks/usePlayers'
 import s from './Players.module.css'
 
-const SORTS = ['All', 'Tiff HCP', 'Wins', 'Trips']
+const SORTS = ['Wins', 'HCP', 'Trips', 'Avg vs Par']
 
 function initials(str) {
   if (!str) return '?'
@@ -16,10 +16,17 @@ function tierClass(tier) {
   return s.t3
 }
 
+function fmtAvg(val) {
+  if (val == null || !isFinite(val)) return '—'
+  const n = Math.round(val)
+  if (n === 0) return 'E'
+  return n > 0 ? `+${n}` : String(n)
+}
+
 export default function Players() {
   const { data: players, loading } = usePlayers()
   const [query, setQuery] = useState('')
-  const [sort, setSort]   = useState('All')
+  const [sort, setSort]   = useState('Wins')
 
   const filtered = useMemo(() => {
     if (!players) return []
@@ -29,10 +36,14 @@ export default function Players() {
       : [...players]
 
     switch (sort) {
-      case 'Tiff HCP': list.sort((a, b) => (a.hcp?.tiff_handicap ?? 99) - (b.hcp?.tiff_handicap ?? 99)); break
-      case 'Wins':     list.sort((a, b) => b.wins - a.wins || b.trips - a.trips); break
-      case 'Trips':    list.sort((a, b) => b.trips - a.trips || b.wins - a.wins); break
-      default:         list.sort((a, b) => b.wins - a.wins || b.trips - a.trips); break
+      case 'HCP':        list.sort((a, b) => (a.hcp?.tiff_handicap ?? 99) - (b.hcp?.tiff_handicap ?? 99)); break
+      case 'Trips':      list.sort((a, b) => b.trips - a.trips || b.wins - a.wins); break
+      case 'Avg vs Par': list.sort((a, b) => {
+        const av = a.avgVsPar ?? Infinity
+        const bv = b.avgVsPar ?? Infinity
+        return av - bv
+      }); break
+      default:           list.sort((a, b) => b.wins - a.wins || b.trips - a.trips); break
     }
     return list
   }, [players, query, sort])
@@ -65,7 +76,8 @@ export default function Players() {
         <div className={s.thead}>
           <div className={s.th}>Player</div>
           <div className={s.th}>HCP</div>
-          <div className={s.th}>Trips</div>
+          <div className={s.th}>W</div>
+          <div className={s.th}>Net Avg</div>
         </div>
 
         {loading ? (
@@ -85,7 +97,7 @@ export default function Players() {
                 </div>
                 <div>
                   <div className={s.playerName}>{player.full_name ?? player.name}</div>
-                  <div className={s.playerTrips}>
+                  <div className={s.playerSub}>
                     {player.trips} trip{player.trips !== 1 ? 's' : ''}
                     {player.isChampion ? ' · 🏆' : ''}
                   </div>
@@ -94,7 +106,8 @@ export default function Players() {
               <div className={`${s.hcpChip} ${tierClass(player.hcp?.tier)}`}>
                 {player.hcp ? player.hcp.tiff_handicap : '—'}
               </div>
-              <div className={s.cell}>{player.trips}</div>
+              <div className={s.cell}>{player.wins || '—'}</div>
+              <div className={`${s.cell} ${s.avg}`}>{fmtAvg(player.avgVsPar)}</div>
             </Link>
           ))
         )}

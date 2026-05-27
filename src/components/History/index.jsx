@@ -2,6 +2,13 @@ import { Link } from 'react-router-dom'
 import { useTournamentHistory } from '../../hooks/useTournamentHistory'
 import s from './History.module.css'
 
+function fmtAvgVsPar(val) {
+  if (val == null || !isFinite(val)) return '—'
+  const n = Math.round(val)
+  if (n === 0) return 'E'
+  return n > 0 ? `+${n}` : String(n)
+}
+
 function vsParStr(net, rds) {
   if (net == null || rds == null) return null
   const diff = Math.round(Number(net) - rds * 72)
@@ -45,16 +52,19 @@ export default function History() {
   const standings = {}
   allResults.forEach(r => {
     if (!standings[r.player_id]) {
-      standings[r.player_id] = { player_id: r.player_id, wins: 0, podiums: 0, netSum: 0, count: 0 }
+      standings[r.player_id] = { player_id: r.player_id, wins: 0, podiums: 0, vsParSum: 0, count: 0 }
     }
     const e = standings[r.player_id]
     if (r.position === 1) e.wins++
     if (r.position <= 3)  e.podiums++
-    if (r.net_total) { e.netSum += Number(r.net_total); e.count++ }
+    if (r.net_total && r.rounds_played) {
+      e.vsParSum += Number(r.net_total) - r.rounds_played * 72
+      e.count++
+    }
   })
   const standingsArr = Object.values(standings)
-    .map(e => ({ ...e, avgNet: e.count ? e.netSum / e.count : Infinity }))
-    .sort((a, b) => b.wins - a.wins || b.podiums - a.podiums || a.avgNet - b.avgNet)
+    .map(e => ({ ...e, avgVsPar: e.count ? e.vsParSum / e.count : Infinity }))
+    .sort((a, b) => b.wins - a.wins || b.podiums - a.podiums || a.avgVsPar - b.avgVsPar)
 
   // ── Championship cards ────────────────────────────────────────
   const champByTournament = {}
@@ -108,7 +118,7 @@ export default function History() {
           <div className={s.atlbTh}>Player</div>
           <div className={s.atlbTh}>W</div>
           <div className={s.atlbTh}>Pod</div>
-          <div className={s.atlbTh}>Avg</div>
+          <div className={s.atlbTh}>Net Avg</div>
         </div>
         {loading ? null : standingsArr.map((entry, i) => {
           const player = players.find(p => p.id === entry.player_id)
@@ -123,7 +133,7 @@ export default function History() {
               <div className={s.atlbName}>{player.full_name ?? player.name}</div>
               <div className={`${s.atlbCell} ${s.wins}`}>{entry.wins}</div>
               <div className={s.atlbCell}>{entry.podiums}</div>
-              <div className={s.atlbCell}>{entry.count > 0 ? Math.round(entry.avgNet) : '—'}</div>
+              <div className={s.atlbCell}>{entry.count > 0 ? fmtAvgVsPar(entry.avgVsPar) : '—'}</div>
             </Link>
           )
         })}

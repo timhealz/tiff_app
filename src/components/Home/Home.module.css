@@ -191,6 +191,65 @@
   color: var(--ink-lt);
 }
 
+/* ── Reigning champion callout ── */
+.champCallout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--sc-cream);
+  border-bottom: 2px solid var(--sc-green);
+  text-decoration: none;
+  color: inherit;
+  transition: background .1s;
+}
+.champCallout:hover { background: var(--sc-cream-dark); }
+.champCalloutLeft { flex: 1; }
+.champCalloutLbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .48rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: rgba(184,150,46,.75);
+  margin-bottom: 4px;
+}
+.champCalloutName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.champCalloutMeta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-top: 4px;
+}
+.champCalloutRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+.champCalloutScore {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+.champCalloutCta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .48rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-lt);
+}
+
 /* ── Championship cards (full-width vertical stack) ── */
 .champCards {
   padding: 12px 14px;
