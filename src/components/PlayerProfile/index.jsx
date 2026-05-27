@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { usePlayer } from '../../hooks/usePlayer'
+import { calcTiffHandicapBreakdown } from '../../lib/handicap'
 import s from './PlayerProfile.module.css'
 
 function vsParStr(netTotal, roundsPlayed) {
@@ -22,6 +23,83 @@ function ordinal(n) {
   if (n === 2) return '2nd'
   if (n === 3) return '3rd'
   return `${n}th`
+}
+
+function HandicapCalculation({ breakdown }) {
+  const { recent, usedKeys, avg, handicap, tier, bestCount } = breakdown
+  const display = [...recent].reverse() // newest first
+
+  const tierLabel =
+    tier === 'established' ? 'Established' :
+    tier === 'provisional' ? 'Provisional' :
+    'New'
+  const tierBadgeClass =
+    tier === 'established' ? s.tierEstablished :
+    tier === 'provisional' ? s.tierProvisional :
+    s.tierNew
+
+  return (
+    <div className={s.hcpCalc}>
+      <div className={s.hcpHdr}>
+        <div className={s.hcpTitle}>Handicap Calculation</div>
+        <span className={`${s.tierBadge} ${tierBadgeClass}`}>{tierLabel}</span>
+      </div>
+
+      {handicap != null ? (
+        <>
+          <div className={s.hcpHeadline}>
+            <div className={s.hcpBigNum}>{handicap}</div>
+            <div className={s.hcpMethod}>
+              GHIN-style · best {bestCount} of {Math.min(recent.length, 20)} × 0.96
+            </div>
+          </div>
+
+          <div className={s.hcpEquation}>
+            <span className={s.hcpEqLbl}>Best {bestCount} avg</span>
+            <span className={s.hcpEqVal}>{avg.toFixed(2)}</span>
+            <span className={s.hcpEqOp}>× 0.96</span>
+            <span className={s.hcpEqVal}>=</span>
+            <span className={`${s.hcpEqVal} ${s.hcpEqResult}`}>{handicap}</span>
+          </div>
+        </>
+      ) : (
+        <div className={s.hcpHeadline}>
+          <div className={s.hcpNoHcp}>—</div>
+          <div className={s.hcpMethod}>
+            Need 3 round differentials to qualify · {recent.length} so far
+          </div>
+        </div>
+      )}
+
+      <div className={s.hcpListLabel}>
+        Last {Math.min(recent.length, 20)} differential{recent.length !== 1 ? 's' : ''}
+        <span className={s.hcpListLabelHint}>
+          {handicap != null && <>· <span className={s.hcpListLabelMark}>gold</span> = counted</>}
+        </span>
+      </div>
+
+      <div className={s.hcpDiffList}>
+        {display.map((r, i) => {
+          const key  = `${r.tournament_rounds?.tournaments?.year}-${r.tournament_rounds?.day_number}-${r.gross_total}-${r.differential}`
+          const used = usedKeys.has(key)
+          const year   = r.tournament_rounds?.tournaments?.year
+          const day    = r.tournament_rounds?.day_number
+          const course = r.tournament_rounds?.courses?.short_name
+            ?? r.tournament_rounds?.courses?.name
+            ?? `Round ${day ?? ''}`.trim()
+          return (
+            <div key={i} className={`${s.hcpDiffRow} ${used ? s.hcpDiffRowUsed : ''}`}>
+              <div className={s.hcpDiffMeta}>
+                <span className={s.hcpDiffYear}>{year}</span>
+                <span className={s.hcpDiffCourse}>{course}{day ? ` · D${day}` : ''}</span>
+              </div>
+              <div className={s.hcpDiffVal}>{r.differential}</div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 export default function PlayerProfile() {
@@ -50,14 +128,26 @@ export default function PlayerProfile() {
       roundsByTournament[year].push(r)
     })
 
-    return { wins, trips, best, avgGross, currentHcp, roundsByTournament }
+    // Handicap breakdown: feed rounds in chronological order (oldest → newest)
+    const chronologicalRounds = [...rounds].sort((a, b) => {
+      const ya = a.tournament_rounds?.tournaments?.year ?? 0
+      const yb = b.tournament_rounds?.tournaments?.year ?? 0
+      if (ya !== yb) return ya - yb
+      return (a.tournament_rounds?.day_number ?? 0) - (b.tournament_rounds?.day_number ?? 0)
+    })
+    const hcpBreakdown = calcTiffHandicapBreakdown(
+      chronologicalRounds,
+      (r) => `${r.tournament_rounds?.tournaments?.year}-${r.tournament_rounds?.day_number}-${r.gross_total}-${r.differential}`,
+    )
+
+    return { wins, trips, best, avgGross, currentHcp, roundsByTournament, hcpBreakdown }
   }, [data])
 
   if (loading) return <div className={s.loading}>Loading…</div>
   if (!data?.player) return <div className={s.loading}>Player not found</div>
 
   const { player, results, hcps } = data
-  const { wins, trips, best, avgGross, currentHcp, roundsByTournament } = derived
+  const { wins, trips, best, avgGross, currentHcp, roundsByTournament, hcpBreakdown } = derived
 
   const resultByYear = {}
   results.forEach(r => {
@@ -106,6 +196,11 @@ export default function PlayerProfile() {
           <div className={s.statLbl}>{wins === 1 ? 'Title' : 'Titles'}</div>
         </div>
       </div>
+
+      {/* Handicap calculation */}
+      {hcpBreakdown.recent.length > 0 && (
+        <HandicapCalculation breakdown={hcpBreakdown} />
+      )}
 
       {/* Year-by-year cards */}
       <div className={s.history}>
@@ -169,9 +264,6 @@ export default function PlayerProfile() {
                           {course?.short_name ?? course?.name ?? `Round ${r.tournament_rounds?.day_number ?? i + 1}`}
                         </div>
                         <div className={s.ycGross}>{r.gross_total}</div>
-                        {r.differential != null && (
-                          <div className={s.ycDiff}>{r.differential}</div>
-                        )}
                       </div>
                     )
                   })}

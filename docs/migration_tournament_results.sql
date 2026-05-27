@@ -212,7 +212,7 @@ ON CONFLICT DO NOTHING;
 INSERT INTO tournament_results (tournament_id, player_id, position, playing_handicap, gross_total, net_total, rounds_played, dnf)
 SELECT t.id, p.id, 2, 9, 252, 225, 3, false
 FROM tournaments t, players p
-WHERE t.year = 2024 AND p.full_name = 'Bryan Lynn'
+WHERE t.year = 2024 AND p.full_name = 'Brian Lynn'
 ON CONFLICT DO NOTHING;
 INSERT INTO tournament_results (tournament_id, player_id, position, playing_handicap, gross_total, net_total, rounds_played, dnf)
 SELECT t.id, p.id, 3, 18, 281, 227, 3, false
@@ -290,7 +290,7 @@ ON CONFLICT DO NOTHING;
 INSERT INTO tournament_results (tournament_id, player_id, position, playing_handicap, gross_total, net_total, rounds_played, dnf)
 SELECT t.id, p.id, 1, 8.99, 253, 226.02, 3, false
 FROM tournaments t, players p
-WHERE t.year = 2025 AND p.full_name = 'Bryan Lynn'
+WHERE t.year = 2025 AND p.full_name = 'Brian Lynn'
 ON CONFLICT DO NOTHING;
 INSERT INTO tournament_results (tournament_id, player_id, position, playing_handicap, gross_total, net_total, rounds_played, dnf)
 SELECT t.id, p.id, 2, 14.87, 284, 239.27, 3, false
@@ -388,7 +388,7 @@ ON CONFLICT DO NOTHING;
 INSERT INTO tournament_results (tournament_id, player_id, position, playing_handicap, gross_total, net_total, rounds_played, dnf)
 SELECT t.id, p.id, 3, 8, 247, 223, 3, false
 FROM tournaments t, players p
-WHERE t.year = 2026 AND p.full_name = 'Bryan Lynn'
+WHERE t.year = 2026 AND p.full_name = 'Brian Lynn'
 ON CONFLICT DO NOTHING;
 INSERT INTO tournament_results (tournament_id, player_id, position, playing_handicap, gross_total, net_total, rounds_played, dnf)
 SELECT t.id, p.id, 4, 15, 272, 227, 3, false

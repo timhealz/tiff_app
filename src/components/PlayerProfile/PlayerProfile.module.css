@@ -227,3 +227,186 @@
 
 .under { color: #1a6b2a; }
 .over  { color: #b83030; }
+
+/* ── Handicap calculation section ── */
+.hcpCalc {
+  background: var(--sc-cream);
+  border-top: 2px solid var(--sc-green);
+  border-bottom: 2px solid var(--sc-green);
+  padding: 14px 16px 18px;
+  margin: 0 0 12px;
+}
+
+.hcpHdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.hcpTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+
+/* Tier badge — celebrated as a status */
+.tierBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid;
+  font-weight: 600;
+}
+.tierEstablished {
+  background: rgba(46,125,71,0.15);
+  color: var(--sc-green-lite);
+  border-color: rgba(46,125,71,0.4);
+}
+.tierProvisional {
+  background: rgba(184,150,46,0.12);
+  color: var(--gold);
+  border-color: rgba(184,150,46,0.4);
+}
+.tierNew {
+  background: rgba(0,0,0,0.06);
+  color: var(--ink-lt);
+  border-color: rgba(0,0,0,0.12);
+}
+
+/* Headline number + method label */
+.hcpHeadline {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.hcpBigNum {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  line-height: 1;
+}
+.hcpNoHcp {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-lt);
+  line-height: 1;
+}
+.hcpMethod {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.54rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  flex: 1;
+}
+
+/* Compact one-line math summary */
+.hcpEquation {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: var(--sc-cream-dark);
+  border: 1px solid var(--sc-cream-mid);
+  border-radius: 4px;
+  padding: 9px 12px;
+  margin-bottom: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.hcpEqLbl {
+  font-size: 0.54rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.hcpEqVal {
+  font-size: 0.78rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+.hcpEqOp {
+  font-size: 0.66rem;
+  color: var(--ink-mid);
+}
+.hcpEqResult {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* List label above the differentials */
+.hcpListLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-lt);
+  margin-bottom: 6px;
+}
+.hcpListLabelHint { margin-left: 6px; }
+.hcpListLabelMark {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.hcpDiffList {
+  background: var(--sc-cream-dark);
+  border: 1px solid var(--sc-cream-mid);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hcpDiffRow {
+  display: grid;
+  grid-template-columns: 1fr 56px;
+  align-items: center;
+  padding: 9px 12px;
+  gap: 8px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  background: var(--sc-cream);
+}
+.hcpDiffRow:last-child { border-bottom: none; }
+.hcpDiffRow:nth-child(even) { background: var(--sc-cream-dark); }
+.hcpDiffRowUsed {
+  background: rgba(184,150,46,0.12) !important;
+  border-left: 3px solid var(--gold);
+  padding-left: 9px;
+}
+
+.hcpDiffMeta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  overflow: hidden;
+}
+.hcpDiffYear {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.hcpDiffCourse {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hcpDiffVal {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-align: right;
+  font-weight: 500;
+}
+.hcpDiffRowUsed .hcpDiffVal { color: var(--gold); font-weight: 700; }
