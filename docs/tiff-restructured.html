@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Tiff — Restructured IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --green:      #1a4a2a;
+  --green-mid:  #235c35;
+  --green-lite: #2e7d47;
+  --cream:      #f2ede3;
+  --cream-dk:   #e8e1d4;
+  --cream-mid:  #ddd5c4;
+  --rule:       #c8bfa8;
+  --gold:       #b8962e;
+  --gold-lt:    #d4b45a;
+  --ink:        #1a1a16;
+  --ink-mid:    #4a4a40;
+  --ink-lt:     #7a7a6a;
+  --eagle:      #4a9e4a;
+  --birdie:     #a8d8a8;
+  --bogey:      #f5c6c6;
+  --double:     #e87070;
+}
+
+body {
+  background: #0d160f;
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 40px 20px 80px;
+  color: var(--cream);
+}
+
+/* ── PAGE HEADER ── */
+.page-header { text-align: center; margin-bottom: 16px; }
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem;
+  letter-spacing: .1em;
+  color: var(--cream);
+}
+.page-title span { color: var(--gold); }
+.page-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  color: #4a7a4a;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.version-tag {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(184,150,46,.1);
+  border: 1px solid rgba(184,150,46,.25);
+  border-radius: 3px;
+  padding: 5px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  color: var(--gold);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* IA diagram */
+.ia-diagram {
+  max-width: 880px;
+  margin: 24px auto 0;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(184,150,46,0.2);
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+.ia-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--gold);
+  margin-bottom: 14px;
+  text-align: center;
+}
+.ia-rules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.ia-rule {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .62rem;
+  color: rgba(242,237,227,.65);
+  line-height: 1.55;
+}
+.ia-rule strong { color: var(--gold-lt); display: block; margin-bottom: 3px; }
+
+/* row labels */
+.row-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  color: #3a6a3a;
+  text-align: center;
+  margin: 44px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.row-label::before,.row-label::after {
+  content:''; flex:1; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(74,122,74,.35), transparent);
+}
+
+.screens {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.screen-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.screen-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: #5a9a5a;
+}
+.url-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .56rem;
+  color: var(--gold);
+  background: rgba(184,150,46,.1);
+  border: 1px solid rgba(184,150,46,.25);
+  border-radius: 3px;
+  padding: 2px 8px;
+  letter-spacing: .04em;
+}
+
+/* ── PHONE SHELL ── */
+.phone {
+  width: 300px;
+  background: var(--cream);
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 0 0 5px #111,
+    0 36px 90px rgba(0,0,0,.8);
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+}
+
+.status-bar {
+  height: 38px;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  flex-shrink: 0;
+}
+.sb-time { font-family:'IBM Plex Mono',monospace; font-size:.65rem; color:var(--cream); }
+.sb-icons { font-size:.58rem; color:var(--cream); display:flex; gap:4px; }
+
+.app-header {
+  background: var(--green);
+  padding: 8px 16px 13px;
+  position: relative;
+  flex-shrink: 0;
+}
+.app-header::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  background: var(--gold);
+}
+.header-row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.app-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.45rem;
+  letter-spacing:.1em;
+  color:var(--cream);
+  line-height:1;
+}
+.app-name span { color:var(--gold); }
+.app-sub {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:rgba(242,237,227,.45);
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  margin-top:2px;
+}
+.back-btn {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing:.1em;
+  cursor: pointer;
+}
+
+.scroll {
+  flex:1; overflow-y:auto;
+  background:var(--cream);
+  scrollbar-width:none;
+}
+.scroll::-webkit-scrollbar { display:none; }
+
+.bottom-nav {
+  display:flex;
+  background:var(--green);
+  border-top:3px solid var(--gold);
+  padding:8px 0 10px;
+  flex-shrink:0;
+}
+.nav-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; }
+.nav-ico { font-size:.9rem; }
+.nav-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.46rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(242,237,227,.3);
+}
+.nav-item.active .nav-lbl { color:var(--gold); }
+
+/* section header — now with "See all →" link */
+.section-hdr {
+  background:var(--green);
+  padding:7px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid rgba(184,150,46,.25);
+  border-bottom:1px solid rgba(184,150,46,.25);
+}
+.section-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.92rem;
+  letter-spacing:.12em;
+  color:var(--cream);
+}
+.section-sub {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  color:rgba(242,237,227,.38);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.see-all {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.54rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing:.1em;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════
+   COUNTDOWN HERO (smaller now)
+═══════════════════════════════════════════ */
+.countdown-hero {
+  background: var(--green);
+  padding: 16px 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.countdown-hero::before {
+  content:'';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 28px,
+    rgba(255,255,255,.018) 28px, rgba(255,255,255,.018) 29px
+  );
+}
+.countdown-hero::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  background: var(--gold);
+}
+.cdh-eyebrow {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.54rem;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  color:rgba(242,237,227,.4);
+  margin-bottom:6px;
+  position:relative; z-index:1;
+}
+.cdh-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;
+  letter-spacing:.06em;
+  color:var(--cream);
+  line-height:.95;
+  position:relative; z-index:1;
+}
+.cdh-title span { color:var(--gold); }
+.cdh-location {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.54rem;
+  color:rgba(242,237,227,.5);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  margin-top:4px;
+  position:relative; z-index:1;
+}
+
+.countdown-digits {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin-top:12px;
+  position:relative; z-index:1;
+}
+.cd-unit {
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(184,150,46,.2);
+  border-radius:3px;
+  padding:6px 4px;
+  text-align:center;
+}
+.cd-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;
+  letter-spacing:.04em;
+  color:var(--gold);
+  line-height:1;
+}
+.cd-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.42rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:rgba(242,237,227,.35);
+  margin-top:2px;
+}
+
+/* ═══════════════════════════════════════════
+   PREVIEW: TOURNAMENT CARDS
+═══════════════════════════════════════════ */
+.results-scroll-wrap {
+  padding:11px 14px 4px;
+  background:var(--cream);
+}
+.results-scroll {
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:8px;
+  scrollbar-width:none;
+}
+.results-scroll::-webkit-scrollbar { display:none; }
+
+.result-card {
+  flex-shrink:0;
+  width:130px;
+  background:var(--green);
+  border-radius:6px;
+  overflow:hidden;
+  border:1px solid rgba(184,150,46,.2);
+  cursor:pointer;
+}
+.rc-header {
+  background:rgba(0,0,0,.2);
+  padding:7px 9px;
+  border-bottom:2px solid var(--gold);
+}
+.rc-year {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.3rem;
+  letter-spacing:.08em;
+  color:var(--gold);
+  line-height:1;
+}
+.rc-location {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:rgba(242,237,227,.45);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-top:2px;
+}
+.rc-body { padding:8px 9px; }
+.rc-champion-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.46rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:rgba(184,150,46,.7);
+  margin-bottom:3px;
+}
+.rc-champion-name {
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:.78rem;
+  font-weight:600;
+  color:var(--cream);
+}
+.rc-score {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.56rem;
+  color:rgba(242,237,227,.45);
+  margin-top:2px;
+}
+
+/* "See all" card at the end of horizontal scroll */
+.see-all-card {
+  flex-shrink: 0;
+  width: 90px;
+  background: rgba(184,150,46,0.08);
+  border: 1px dashed rgba(184,150,46,0.35);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--gold);
+}
+.see-all-card-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════
+   PREVIEW: ROSTER / PLAYERS
+═══════════════════════════════════════════ */
+.roster-strip {
+  padding:12px 14px;
+  background:var(--cream-dk);
+  border-bottom:1px solid var(--cream-mid);
+}
+.roster-scroll {
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+.roster-scroll::-webkit-scrollbar { display:none; }
+.roster-player {
+  display:flex; flex-direction:column; align-items:center;
+  gap:4px; flex-shrink:0; cursor:pointer;
+}
+.roster-avatar {
+  width:42px; height:42px;
+  background:var(--green);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.95rem;
+  letter-spacing:.05em;
+  color:var(--gold);
+  border:2px solid var(--rule);
+  position:relative;
+}
+.roster-avatar.champion { border-color:var(--gold); }
+.roster-avatar.champion::after {
+  content:'🏆';
+  position:absolute;
+  top:-6px; right:-6px;
+  font-size:.5rem;
+  line-height:1;
+}
+.roster-name {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  color:var(--ink-mid);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.roster-hcp {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.46rem;
+  color:var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PREVIEW: ALL-TIME STANDINGS (TOP 3 + LINK)
+═══════════════════════════════════════════ */
+.preview-standings { background:var(--cream); }
+.ps-row {
+  display:grid;
+  grid-template-columns:24px 1fr 32px 32px;
+  padding:8px 14px;
+  border-bottom:1px solid var(--cream-mid);
+  align-items:center;
+  gap:4px;
+  cursor: pointer;
+}
+.ps-row.alt { background:var(--cream-dk); }
+.ps-pos {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem; font-weight:600;
+  text-align:center; color:var(--ink-mid);
+}
+.ps-pos.p1 { color:var(--gold); }
+.ps-name { font-size:.74rem; font-weight:600; color:var(--ink); }
+.ps-meta {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--ink-lt);
+  margin-top:1px;
+}
+.pscell {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem;
+  text-align:center;
+  color:var(--ink-mid);
+}
+.pscell.wins { color:var(--gold); font-weight:600; }
+
+/* "See more" inline row */
+.see-more-row {
+  padding: 10px 14px;
+  background: var(--cream-dk);
+  text-align: center;
+  cursor: pointer;
+  border-top: 1px solid var(--cream-mid);
+}
+.see-more-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .58rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+/* ═══════════════════════════════════════════
+   TOURNAMENTS LIST PAGE (canonical)
+═══════════════════════════════════════════ */
+.tournaments-list {
+  background: var(--cream);
+}
+.tlist-item {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cream-mid);
+  align-items: center;
+  cursor: pointer;
+  background: var(--cream);
+}
+.tlist-item.alt { background: var(--cream-dk); }
+.tlist-item.active {
+  background: rgba(184,150,46,0.08);
+  border-left: 3px solid var(--gold);
+  padding-left: 11px;
+}
+
+.tlist-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: .04em;
+  color: var(--green);
+  line-height: 1;
+}
+.tlist-year.active-yr { color: var(--gold); }
+.tlist-info {}
+.tlist-loc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.tlist-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  color: var(--ink-lt);
+  margin-top: 2px;
+}
+.tlist-champion {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+.tlist-right {
+  text-align: right;
+}
+.tlist-pos {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .56rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.tlist-arrow {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--rule);
+  margin-top: 2px;
+}
+
+.live-badge-small {
+  display:inline-flex;
+  align-items:center; gap:4px;
+  background: rgba(184,150,46,.15);
+  border:1px solid var(--gold);
+  border-radius:3px;
+  padding:2px 6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.live-dot {
+  width:5px; height:5px;
+  background:var(--gold);
+  border-radius:50%;
+  animation:blink 1.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ═══════════════════════════════════════════
+   SINGLE TOURNAMENT PAGE
+═══════════════════════════════════════════ */
+.tourney-hero {
+  background: var(--green);
+  padding: 16px 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.tourney-hero::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:3px;
+  background: var(--gold);
+}
+.tourney-hero-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.tourney-year-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: .06em;
+  color: var(--cream);
+  line-height: 1;
+}
+.tourney-name-sub {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: .78rem;
+  color: rgba(242,237,227,.55);
+  margin-top: 3px;
+}
+.tourney-loc-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  color: rgba(242,237,227,.4);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  margin-top: 5px;
+}
+.tourney-state {
+  text-align: right;
+}
+.state-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  display: inline-block;
+}
+.state-badge.complete { background: rgba(46,125,71,.25); color: #7acc8a; border:1px solid rgba(46,125,71,.4); }
+.state-badge.active { background: rgba(184,150,46,.2); color: var(--gold); border:1px solid var(--gold); }
+
+/* Champion banner (only shows on completed tournaments) */
+.champ-banner {
+  background: linear-gradient(135deg, rgba(184,150,46,0.15), rgba(184,150,46,0.05));
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.champ-banner-trophy { font-size: 1.6rem; }
+.champ-banner-text {}
+.champ-banner-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--gold);
+}
+.champ-banner-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: .04em;
+  color: var(--ink);
+  line-height: 1;
+  margin-top: 2px;
+}
+.champ-banner-score {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .56rem;
+  color: var(--ink-mid);
+  margin-top: 3px;
+}
+
+/* Final standings */
+.fs-thead {
+  display:grid;
+  grid-template-columns:24px 1fr 40px 40px 40px;
+  padding:6px 12px;
+  background:var(--green);
+  border-bottom:2px solid var(--gold);
+  gap:4px;
+}
+.fsth {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(242,237,227,.55);
+  text-align:center;
+}
+.fsth:nth-child(2) { text-align:left; }
+
+.fs-row {
+  display:grid;
+  grid-template-columns:24px 1fr 40px 40px 40px;
+  padding:8px 12px;
+  border-bottom:1px solid var(--cream-mid);
+  align-items:center;
+  gap:4px;
+  background:var(--cream);
+  cursor:pointer;
+}
+.fs-row.alt { background:var(--cream-dk); }
+.fs-row.p1 { background:linear-gradient(90deg, rgba(184,150,46,.08) 0%, var(--cream) 70%); }
+.fs-pos {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem; font-weight:600;
+  text-align:center; color:var(--ink-mid);
+}
+.fs-pos.gold { color:var(--gold); }
+.fs-name { font-size:.74rem; font-weight:600; color:var(--ink); }
+.fs-hcp {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem; color:var(--ink-lt);
+  margin-top:1px;
+}
+.fscell {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem;
+  text-align:center; color:var(--ink-mid);
+}
+.fscell.under { color:#1a6b2a; font-weight:600; }
+.fscell.over  { color:#b83030; }
+
+/* round-by-round mini grid */
+.round-grid-wrap {
+  padding: 12px 14px;
+  background: var(--cream);
+}
+.round-grid-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-lt);
+  margin-bottom: 8px;
+}
+.round-grid {
+  display: grid;
+  grid-template-columns: 1fr 40px 40px 40px 50px;
+  gap: 0;
+  border: 1px solid var(--cream-mid);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.rg-hdr {
+  background: var(--green);
+  color: rgba(242,237,227,.6);
+  padding: 5px 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .48rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.rg-hdr:first-child { text-align: left; padding-left: 8px; }
+.rg-hdr:last-child { border-right: none; }
+.rg-cell {
+  padding: 6px 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .66rem;
+  text-align: center;
+  background: var(--cream);
+  border-right: 1px solid var(--cream-mid);
+  border-top: 1px solid var(--cream-mid);
+  color: var(--ink-mid);
+}
+.rg-cell.alt { background: var(--cream-dk); }
+.rg-cell:first-child { text-align: left; padding-left: 8px; font-size: .68rem; color: var(--ink); font-weight: 500; }
+.rg-cell:last-child { border-right: none; font-weight: 600; color: var(--ink); }
+
+/* ═══════════════════════════════════════════
+   RECORDS PAGE
+═══════════════════════════════════════════ */
+.records-stat-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--cream-mid);
+}
+.rec-box {
+  background:var(--cream);
+  padding:13px 13px;
+}
+.rec-box.dk { background:var(--cream-dk); }
+.rec-ico { font-size: 1rem; margin-bottom: 4px; }
+.rec-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--ink-lt);
+  margin-bottom:4px;
+}
+.rec-val {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;
+  letter-spacing:.04em;
+  color:var(--ink);
+  line-height:1;
+}
+.rec-val.gold { color:var(--gold); }
+.rec-val.green { color:#1a6b2a; }
+.rec-detail {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--ink-lt);
+  margin-top:3px;
+  line-height: 1.4;
+}
+
+/* Full all-time standings (no truncation) */
+.full-standings {
+  background: var(--cream);
+}
+.fst-thead {
+  display:grid;
+  grid-template-columns:24px 1fr 32px 32px 36px;
+  padding:5px 14px;
+  background:var(--green);
+  border-bottom:2px solid var(--gold);
+  gap:4px;
+}
+.fstth {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.46rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(242,237,227,.55);
+  text-align:center;
+}
+.fstth:nth-child(2) { text-align:left; }
+
+.fst-row {
+  display:grid;
+  grid-template-columns:24px 1fr 32px 32px 36px;
+  padding:9px 14px;
+  border-bottom:1px solid var(--cream-mid);
+  align-items:center;
+  gap:4px;
+  cursor:pointer;
+}
+.fst-row.alt { background:var(--cream-dk); }
+.fst-pos {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem; font-weight:600;
+  text-align:center; color:var(--ink-mid);
+}
+.fst-pos.gold { color:var(--gold); }
+.fst-name { font-size:.74rem; font-weight:600; color:var(--ink); }
+.fst-meta {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;
+  color:var(--ink-lt);
+  margin-top:1px;
+}
+.fst-cell {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem;
+  text-align:center; color:var(--ink-mid);
+}
+.fst-cell.wins { color:var(--gold); font-weight:600; }
+.fst-cell.under { color:#1a6b2a; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-title">THE <span>TIFF</span> — Restructured</div>
+  <div class="page-sub">New information architecture · one canonical home per data type</div>
+  <div class="version-tag">No more duplication · clear page ownership</div>
+
+  <div class="ia-diagram">
+    <div class="ia-title">Information Architecture Rules</div>
+    <div class="ia-rules">
+      <div class="ia-rule">
+        <strong>Home is a dashboard</strong>
+        Only shows previews. Never the canonical home for any data. Each preview ends in "See all →"
+      </div>
+      <div class="ia-rule">
+        <strong>Each data type has one canonical page</strong>
+        Tournaments live at /tournaments. Players at /players. Records at /records. No "history" page.
+      </div>
+      <div class="ia-rule">
+        <strong>/tournaments/:year is multi-state</strong>
+        Same URL before, during, and after the trip. Content adapts to tournament status.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ROW 1: HOME + CANONICAL TOURNAMENT PAGES ════ -->
+<div class="row-label">Home (preview) → Tournaments (canonical list) → Single Tournament</div>
+<div class="screens">
+
+  <!-- SCREEN 1: HOME -->
+  <div class="screen-wrap">
+    <div class="screen-label">① Home — Preview Dashboard</div>
+    <div class="url-tag">/</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">THE <span>TIFF</span></div>
+            <div class="app-sub">Annual Golf Classic</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll">
+
+        <!-- Smaller countdown -->
+        <div class="countdown-hero">
+          <div class="cdh-eyebrow">Next Tiff in</div>
+          <div class="cdh-title">The <span>8th Annual</span></div>
+          <div class="cdh-location">📍 TBD · Summer 2026</div>
+          <div class="countdown-digits">
+            <div class="cd-unit"><div class="cd-num">312</div><div class="cd-lbl">Days</div></div>
+            <div class="cd-unit"><div class="cd-num">14</div><div class="cd-lbl">Hours</div></div>
+            <div class="cd-unit"><div class="cd-num">07</div><div class="cd-lbl">Mins</div></div>
+            <div class="cd-unit"><div class="cd-num">22</div><div class="cd-lbl">Secs</div></div>
+          </div>
+        </div>
+
+        <!-- The Field — preview (4 visible + "See all") -->
+        <div class="section-hdr">
+          <span class="section-title">The Field</span>
+          <span class="see-all">All players →</span>
+        </div>
+        <div class="roster-strip">
+          <div class="roster-scroll">
+            <div class="roster-player">
+              <div class="roster-avatar champion">TH</div>
+              <div class="roster-name">Healy</div>
+              <div class="roster-hcp">13.2</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">MD</div>
+              <div class="roster-name">Donovan</div>
+              <div class="roster-hcp">11.8</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">RC</div>
+              <div class="roster-name">Castel.</div>
+              <div class="roster-hcp">8.4</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">JP</div>
+              <div class="roster-name">Pruitt</div>
+              <div class="roster-hcp">22.0</div>
+            </div>
+            <div class="roster-player">
+              <div class="roster-avatar">KM</div>
+              <div class="roster-name">Morales</div>
+              <div class="roster-hcp">9.4</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Tournaments — preview (3 cards + "See all" card) -->
+        <div class="section-hdr">
+          <span class="section-title">Recent Tournaments</span>
+          <span class="see-all">All 7 years →</span>
+        </div>
+        <div class="results-scroll-wrap">
+          <div class="results-scroll">
+            <div class="result-card">
+              <div class="rc-header">
+                <div class="rc-year">2025</div>
+                <div class="rc-location">Pebble Beach</div>
+              </div>
+              <div class="rc-body">
+                <div class="rc-champion-lbl">🏆 Champion</div>
+                <div class="rc-champion-name">T. Healy</div>
+                <div class="rc-score">207 net · <strong style="color:var(--gold-lt)">−9</strong></div>
+              </div>
+            </div>
+            <div class="result-card">
+              <div class="rc-header">
+                <div class="rc-year">2024</div>
+                <div class="rc-location">Bandon</div>
+              </div>
+              <div class="rc-body">
+                <div class="rc-champion-lbl">🏆 Champion</div>
+                <div class="rc-champion-name">M. Donovan</div>
+                <div class="rc-score">211 net · <strong style="color:var(--gold-lt)">−5</strong></div>
+              </div>
+            </div>
+            <div class="result-card">
+              <div class="rc-header">
+                <div class="rc-year">2023</div>
+                <div class="rc-location">Pinehurst</div>
+              </div>
+              <div class="rc-body">
+                <div class="rc-champion-lbl">🏆 Champion</div>
+                <div class="rc-champion-name">R. Castell.</div>
+                <div class="rc-score">209 net · <strong style="color:var(--gold-lt)">−7</strong></div>
+              </div>
+            </div>
+            <div class="see-all-card">
+              <div style="font-size:1.4rem">→</div>
+              <div class="see-all-card-text">View<br>all 7</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All-Time Standings — preview (top 3 + "See all") -->
+        <div class="section-hdr">
+          <span class="section-title">All-Time Top 3</span>
+          <span class="see-all">Full records →</span>
+        </div>
+        <div class="preview-standings">
+          <div class="ps-row">
+            <div class="ps-pos p1">🏆</div>
+            <div>
+              <div class="ps-name">T. Healy</div>
+              <div class="ps-meta">7 trips · avg net −3.1</div>
+            </div>
+            <div class="pscell wins">2</div>
+            <div class="pscell">5</div>
+          </div>
+          <div class="ps-row alt">
+            <div class="ps-pos">2</div>
+            <div>
+              <div class="ps-name">M. Donovan</div>
+              <div class="ps-meta">7 trips · avg net −2.4</div>
+            </div>
+            <div class="pscell wins">1</div>
+            <div class="pscell">4</div>
+          </div>
+          <div class="ps-row">
+            <div class="ps-pos">3</div>
+            <div>
+              <div class="ps-name">R. Castellano</div>
+              <div class="ps-meta">5 trips · avg net −1.8</div>
+            </div>
+            <div class="pscell wins">1</div>
+            <div class="pscell">3</div>
+          </div>
+          <div class="see-more-row">
+            <span class="see-more-link">See full hall of fame →</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active"><span class="nav-ico">🏠</span><span class="nav-lbl">Home</span></div>
+        <div class="nav-item"><span class="nav-ico">🏆</span><span class="nav-lbl">Tourn.</span></div>
+        <div class="nav-item"><span class="nav-ico">👥</span><span class="nav-lbl">Players</span></div>
+        <div class="nav-item"><span class="nav-ico">📊</span><span class="nav-lbl">Records</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: TOURNAMENTS LIST -->
+  <div class="screen-wrap">
+    <div class="screen-label">② Tournaments — Canonical List</div>
+    <div class="url-tag">/tournaments</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">Tournaments</div>
+            <div class="app-sub">7 years · all tournaments</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll">
+        <div class="tournaments-list">
+
+          <!-- Active tournament (if there is one) shown at top -->
+          <div class="tlist-item active">
+            <div class="tlist-year active-yr">'26</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Whistling Straits</div>
+              <div class="tlist-meta">8th Annual · Day 1 underway</div>
+              <div class="tlist-champion">
+                <span class="live-badge-small"><span class="live-dot"></span>Live</span>
+              </div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">View leaderboard</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="tlist-item">
+            <div class="tlist-year">'25</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Pebble Beach</div>
+              <div class="tlist-meta">7th Annual · 8 players</div>
+              <div class="tlist-champion">🏆 T. Healy · 207 net (−9)</div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">You finished 1st</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="tlist-item alt">
+            <div class="tlist-year">'24</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Bandon Dunes</div>
+              <div class="tlist-meta">6th Annual · 8 players</div>
+              <div class="tlist-champion">🏆 M. Donovan · 211 net (−5)</div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">You finished 3rd</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="tlist-item">
+            <div class="tlist-year">'23</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Pinehurst</div>
+              <div class="tlist-meta">5th Annual · 7 players</div>
+              <div class="tlist-champion">🏆 R. Castellano · 209 net (−7)</div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">You finished 2nd</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="tlist-item alt">
+            <div class="tlist-year">'22</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Kiawah Island</div>
+              <div class="tlist-meta">4th Annual · 6 players</div>
+              <div class="tlist-champion">🏆 B. Wallace · 214 net (+2)</div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">You finished 5th</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="tlist-item">
+            <div class="tlist-year">'21</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Streamsong</div>
+              <div class="tlist-meta">3rd Annual · 6 players</div>
+              <div class="tlist-champion">🏆 T. Healy · 213 net (−2)</div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">You finished 1st</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="tlist-item alt">
+            <div class="tlist-year">'20</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Whistling Straits</div>
+              <div class="tlist-meta">2nd Annual · 5 players</div>
+              <div class="tlist-champion">🏆 K. Morales · 216 net (E)</div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">You finished 4th</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="tlist-item">
+            <div class="tlist-year">'19</div>
+            <div class="tlist-info">
+              <div class="tlist-loc">Bethpage Black</div>
+              <div class="tlist-meta">1st Annual · 5 players</div>
+              <div class="tlist-champion">🏆 M. Donovan · 218 net (+3)</div>
+            </div>
+            <div class="tlist-right">
+              <div class="tlist-pos">You finished 2nd</div>
+              <div class="tlist-arrow">→</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-ico">🏠</span><span class="nav-lbl">Home</span></div>
+        <div class="nav-item active"><span class="nav-ico">🏆</span><span class="nav-lbl">Tourn.</span></div>
+        <div class="nav-item"><span class="nav-ico">👥</span><span class="nav-lbl">Players</span></div>
+        <div class="nav-item"><span class="nav-ico">📊</span><span class="nav-lbl">Records</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: SINGLE TOURNAMENT -->
+  <div class="screen-wrap">
+    <div class="screen-label">③ Single Tournament (post-event)</div>
+    <div class="url-tag">/tournaments/2024</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div class="back-btn">← Tournaments</div>
+        </div>
+      </div>
+
+      <div class="scroll">
+
+        <div class="tourney-hero">
+          <div class="tourney-hero-row">
+            <div>
+              <div class="tourney-year-big">2024</div>
+              <div class="tourney-name-sub">The 6th Annual Tiff</div>
+              <div class="tourney-loc-sub">📍 Bandon Dunes</div>
+            </div>
+            <div class="tourney-state">
+              <span class="state-badge complete">✓ Complete</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="champ-banner">
+          <div class="champ-banner-trophy">🏆</div>
+          <div class="champ-banner-text">
+            <div class="champ-banner-label">Champion</div>
+            <div class="champ-banner-name">M. Donovan</div>
+            <div class="champ-banner-score">211 net · −5 vs par</div>
+          </div>
+        </div>
+
+        <div class="section-hdr">
+          <span class="section-title">Final Standings</span>
+          <span class="section-sub">Net stroke play</span>
+        </div>
+        <div>
+          <div class="fs-thead">
+            <div class="fsth"></div>
+            <div class="fsth" style="text-align:left">Player</div>
+            <div class="fsth">Net</div>
+            <div class="fsth">+/−</div>
+            <div class="fsth">Grs</div>
+          </div>
+          <div class="fs-row p1">
+            <div class="fs-pos gold">🏆</div>
+            <div><div class="fs-name">M. Donovan</div><div class="fs-hcp">Tiff 12.1</div></div>
+            <div class="fscell">211</div>
+            <div class="fscell under">−5</div>
+            <div class="fscell">247</div>
+          </div>
+          <div class="fs-row alt">
+            <div class="fs-pos">2</div>
+            <div><div class="fs-name">K. Morales</div><div class="fs-hcp">Tiff 10.2</div></div>
+            <div class="fscell">213</div>
+            <div class="fscell under">−3</div>
+            <div class="fscell">244</div>
+          </div>
+          <div class="fs-row">
+            <div class="fs-pos">3</div>
+            <div><div class="fs-name">T. Healy</div><div class="fs-hcp">Tiff 14.0</div></div>
+            <div class="fscell">214</div>
+            <div class="fscell under">−2</div>
+            <div class="fscell">256</div>
+          </div>
+          <div class="fs-row alt">
+            <div class="fs-pos">4</div>
+            <div><div class="fs-name">R. Castellano</div><div class="fs-hcp">Tiff* 9.1</div></div>
+            <div class="fscell">217</div>
+            <div class="fscell over">+1</div>
+            <div class="fscell">244</div>
+          </div>
+          <div class="fs-row">
+            <div class="fs-pos">5</div>
+            <div><div class="fs-name">B. Wallace</div><div class="fs-hcp">GHIN 22.0</div></div>
+            <div class="fscell">219</div>
+            <div class="fscell over">+3</div>
+            <div class="fscell">285</div>
+          </div>
+        </div>
+
+        <div class="round-grid-wrap">
+          <div class="round-grid-title">Round-by-round · click to see scorecards</div>
+          <div class="round-grid">
+            <div class="rg-hdr">Player</div>
+            <div class="rg-hdr">D1</div>
+            <div class="rg-hdr">D2</div>
+            <div class="rg-hdr">D3</div>
+            <div class="rg-hdr">Total</div>
+
+            <div class="rg-cell">M. Donovan</div>
+            <div class="rg-cell">68</div>
+            <div class="rg-cell">72</div>
+            <div class="rg-cell">71</div>
+            <div class="rg-cell">211</div>
+
+            <div class="rg-cell alt">K. Morales</div>
+            <div class="rg-cell alt">71</div>
+            <div class="rg-cell alt">70</div>
+            <div class="rg-cell alt">72</div>
+            <div class="rg-cell alt">213</div>
+
+            <div class="rg-cell">T. Healy</div>
+            <div class="rg-cell">73</div>
+            <div class="rg-cell">69</div>
+            <div class="rg-cell">72</div>
+            <div class="rg-cell">214</div>
+
+            <div class="rg-cell alt">R. Castellano</div>
+            <div class="rg-cell alt">72</div>
+            <div class="rg-cell alt">73</div>
+            <div class="rg-cell alt">72</div>
+            <div class="rg-cell alt">217</div>
+
+            <div class="rg-cell">B. Wallace</div>
+            <div class="rg-cell">75</div>
+            <div class="rg-cell">71</div>
+            <div class="rg-cell">73</div>
+            <div class="rg-cell">219</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-ico">🏠</span><span class="nav-lbl">Home</span></div>
+        <div class="nav-item active"><span class="nav-ico">🏆</span><span class="nav-lbl">Tourn.</span></div>
+        <div class="nav-item"><span class="nav-ico">👥</span><span class="nav-lbl">Players</span></div>
+        <div class="nav-item"><span class="nav-ico">📊</span><span class="nav-lbl">Records</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ ROW 2: RECORDS ════ -->
+<div class="row-label">Records — canonical home for all-time aggregates</div>
+<div class="screens">
+
+  <div class="screen-wrap">
+    <div class="screen-label">④ Records (Hall of Fame)</div>
+    <div class="url-tag">/records</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="sb-time">9:41</span>
+        <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="app-header">
+        <div class="header-row">
+          <div>
+            <div class="app-name">Records</div>
+            <div class="app-sub">7 years · 147 rounds</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll">
+
+        <div class="section-hdr">
+          <span class="section-title">All-Time Records</span>
+          <span class="section-sub">Single round bests</span>
+        </div>
+        <div class="records-stat-grid">
+          <div class="rec-box">
+            <div class="rec-ico">🏆</div>
+            <div class="rec-lbl">Most Championships</div>
+            <div class="rec-val gold">2×</div>
+            <div class="rec-detail">T. Healy<br>2021 · 2025</div>
+          </div>
+          <div class="rec-box dk">
+            <div class="rec-ico">⛳</div>
+            <div class="rec-lbl">Low Net Round</div>
+            <div class="rec-val green">67</div>
+            <div class="rec-detail">T. Healy<br>Pinehurst No. 2 · 2023</div>
+          </div>
+          <div class="rec-box dk">
+            <div class="rec-ico">🎯</div>
+            <div class="rec-lbl">Low Gross Round</div>
+            <div class="rec-val">76</div>
+            <div class="rec-detail">R. Castellano<br>Pebble Beach · 2025</div>
+          </div>
+          <div class="rec-box">
+            <div class="rec-ico">📊</div>
+            <div class="rec-lbl">Low Differential</div>
+            <div class="rec-val gold">11.4</div>
+            <div class="rec-detail">T. Healy<br>Pebble Beach · 2025</div>
+          </div>
+          <div class="rec-box dk">
+            <div class="rec-ico">🐦</div>
+            <div class="rec-lbl">Most Birdies (event)</div>
+            <div class="rec-val green">11</div>
+            <div class="rec-detail">R. Castellano<br>2025 Pebble</div>
+          </div>
+          <div class="rec-box">
+            <div class="rec-ico">🦅</div>
+            <div class="rec-lbl">Total Eagles</div>
+            <div class="rec-val gold">3</div>
+            <div class="rec-detail">M. Donovan<br>career</div>
+          </div>
+        </div>
+
+        <div class="section-hdr">
+          <span class="section-title">Hall of Fame</span>
+          <span class="section-sub">All-time standings</span>
+        </div>
+        <div class="full-standings">
+          <div class="fst-thead">
+            <div class="fstth"></div>
+            <div class="fstth" style="text-align:left">Player</div>
+            <div class="fstth">W</div>
+            <div class="fstth">Pod</div>
+            <div class="fstth">Avg</div>
+          </div>
+
+          <div class="fst-row">
+            <div class="fst-pos gold">🏆</div>
+            <div>
+              <div class="fst-name">T. Healy</div>
+              <div class="fst-meta">7 trips · 21 rounds</div>
+            </div>
+            <div class="fst-cell wins">2</div>
+            <div class="fst-cell">5</div>
+            <div class="fst-cell under">−3.1</div>
+          </div>
+          <div class="fst-row alt">
+            <div class="fst-pos">2</div>
+            <div>
+              <div class="fst-name">M. Donovan</div>
+              <div class="fst-meta">7 trips · 21 rounds</div>
+            </div>
+            <div class="fst-cell wins">1</div>
+            <div class="fst-cell">4</div>
+            <div class="fst-cell under">−2.4</div>
+          </div>
+          <div class="fst-row">
+            <div class="fst-pos">3</div>
+            <div>
+              <div class="fst-name">R. Castellano</div>
+              <div class="fst-meta">5 trips · 15 rounds</div>
+            </div>
+            <div class="fst-cell wins">1</div>
+            <div class="fst-cell">3</div>
+            <div class="fst-cell under">−1.8</div>
+          </div>
+          <div class="fst-row alt">
+            <div class="fst-pos">4</div>
+            <div>
+              <div class="fst-name">K. Morales</div>
+              <div class="fst-meta">6 trips · 18 rounds</div>
+            </div>
+            <div class="fst-cell wins">1</div>
+            <div class="fst-cell">3</div>
+            <div class="fst-cell under">−0.9</div>
+          </div>
+          <div class="fst-row">
+            <div class="fst-pos">5</div>
+            <div>
+              <div class="fst-name">B. Wallace</div>
+              <div class="fst-meta">4 trips · 12 rounds</div>
+            </div>
+            <div class="fst-cell wins">1</div>
+            <div class="fst-cell">2</div>
+            <div class="fst-cell">+0.4</div>
+          </div>
+          <div class="fst-row alt">
+            <div class="fst-pos">6</div>
+            <div>
+              <div class="fst-name">J. Pruitt</div>
+              <div class="fst-meta">4 trips · 12 rounds</div>
+            </div>
+            <div class="fst-cell wins">0</div>
+            <div class="fst-cell">1</div>
+            <div class="fst-cell">+1.8</div>
+          </div>
+          <div class="fst-row">
+            <div class="fst-pos">7</div>
+            <div>
+              <div class="fst-name">D. Park</div>
+              <div class="fst-meta">2 trips · 6 rounds</div>
+            </div>
+            <div class="fst-cell wins">0</div>
+            <div class="fst-cell">0</div>
+            <div class="fst-cell">+3.2</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-ico">🏠</span><span class="nav-lbl">Home</span></div>
+        <div class="nav-item"><span class="nav-ico">🏆</span><span class="nav-lbl">Tourn.</span></div>
+        <div class="nav-item"><span class="nav-ico">👥</span><span class="nav-lbl">Players</span></div>
+        <div class="nav-item active"><span class="nav-ico">📊</span><span class="nav-lbl">Records</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

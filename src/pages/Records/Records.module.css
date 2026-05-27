@@ -1,0 +1,36 @@
+.page {
+  background: var(--sc-green);
+  min-height: 100%;
+}
+
+.pageHeader {
+  padding: 16px 16px 12px;
+  border-bottom: 2px solid var(--gold);
+}
+
+.pageTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: var(--sc-cream);
+  line-height: 1;
+}
+
+.pageSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.52rem;
+  color: rgba(242,237,227,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-top: 3px;
+}
+
+.empty {
+  padding: 40px 16px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: rgba(242,237,227,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}

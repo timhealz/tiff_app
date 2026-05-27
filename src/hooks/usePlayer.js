@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 
-export function usePlayerProfile(playerId) {
+/**
+ * Single player with full career data. Replaces usePlayerProfile.
+ *
+ * Returns { player, results, rounds, hcps } or null if not found.
+ */
+export function usePlayer(playerId) {
   const [data, setData]       = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!playerId) return
     async function load() {
+      setLoading(true)
       const [player, results, rounds, hcps] = await Promise.all([
         supabase
           .from('players')

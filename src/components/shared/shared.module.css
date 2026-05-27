@@ -1,0 +1,618 @@
+/* ── SECTION HEADER ── */
+.sectionHdr {
+  background: var(--sc-green);
+  padding: 7px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(184,150,46,.25);
+  border-bottom: 1px solid rgba(184,150,46,.25);
+}
+.sectionTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: .92rem;
+  letter-spacing: .12em;
+  color: var(--sc-cream);
+}
+.sectionSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .48rem;
+  color: rgba(242,237,227,.38);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.seeAll {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  text-decoration: none;
+}
+.seeAll:hover { color: var(--gold-lt); }
+
+/* ── TOURNAMENT CARD (compact) ── */
+.tcCompact {
+  flex-shrink: 0;
+  width: 150px;
+  min-height: 156px;
+  background: var(--sc-green);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(184,150,46,.2);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: transform .1s;
+}
+.tcCompact:hover { transform: translateY(-2px); }
+.tcCompactHeader {
+  background: rgba(0,0,0,.2);
+  padding: 10px 11px;
+  border-bottom: 2px solid var(--gold);
+}
+.tcCompactYear {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: .08em;
+  color: var(--gold);
+  line-height: 1;
+}
+.tcCompactLocation {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  color: rgba(242,237,227,.45);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-top: 4px;
+}
+.tcCompactBody {
+  padding: 12px 11px 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.tcCompactChampLbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .48rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: rgba(184,150,46,.7);
+  margin-bottom: 5px;
+}
+.tcCompactChampName {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--sc-cream);
+  line-height: 1.2;
+}
+.tcCompactScore {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .58rem;
+  color: rgba(242,237,227,.55);
+  margin-top: 6px;
+}
+.tcCompactScore strong { color: var(--gold-lt); font-weight: 600; }
+
+/* ── TOURNAMENT CARD (row) ── */
+.tList { background: var(--sc-cream); }
+.tcRow {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  background: var(--sc-cream);
+  text-decoration: none;
+  color: inherit;
+  transition: background .1s;
+}
+.tcRow:hover { background: var(--sc-cream-dark); }
+.tcRow:nth-child(even) { background: var(--sc-cream-dark); }
+.tcRow:nth-child(even):hover { background: var(--sc-cream-mid); }
+.tcRowActive {
+  background: rgba(184,150,46,0.08) !important;
+  border-left: 3px solid var(--gold);
+  padding-left: 11px;
+}
+.tcRowYear {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: .04em;
+  color: var(--sc-green);
+  line-height: 1;
+}
+.tcRowYearActive { color: var(--gold); }
+.tcRowLoc {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.tcRowMeta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  color: var(--ink-lt);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.tcRowChamp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  color: var(--gold);
+  margin-top: 3px;
+}
+.tcRowPodium {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tcRowPodRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .56rem;
+}
+.tcRowPodMedal {
+  width: 14px;
+  font-size: .7rem;
+  line-height: 1;
+}
+.tcRowPodName {
+  color: var(--ink-mid);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tcRowPodChamp {
+  color: var(--gold);
+  font-weight: 600;
+}
+.tcRowPodScore {
+  color: var(--ink-lt);
+  font-size: .54rem;
+}
+.tcRowLive { margin-top: 3px; }
+.tcRowRight { text-align: right; }
+.tcRowArrow {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--sc-rule);
+  font-size: 1rem;
+}
+.liveBadgeSmall {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(184,150,46,.15);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.liveDot {
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: liveBlink 1.4s ease-in-out infinite;
+}
+@keyframes liveBlink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ── PLAYER ROW (avatar/field card variant) ── */
+.prFieldCard {
+  width: 112px;
+  flex-shrink: 0;
+  background: var(--sc-cream);
+  border: 1px solid var(--sc-cream-mid);
+  border-radius: 8px;
+  padding: 12px 8px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .1s, border-color .1s;
+}
+.prFieldCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--sc-rule);
+}
+.prFieldAvatar {
+  width: 56px;
+  height: 56px;
+  background: var(--sc-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: .05em;
+  color: var(--gold);
+  border: 2px solid var(--sc-rule);
+  position: relative;
+  flex-shrink: 0;
+}
+.prAvatarChamp { border-color: var(--gold); }
+.prAvatarChamp::after {
+  content: '🏆';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: .65rem;
+  line-height: 1;
+}
+.prFieldName {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 96px;
+  word-break: break-word;
+  hyphens: auto;
+}
+.prFieldHcp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  color: var(--gold);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ── PLAYER ROW (list-row variant) ── */
+.prRow {
+  display: grid;
+  grid-template-columns: 1fr 48px 32px 52px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  gap: 4px;
+  background: var(--sc-cream);
+  transition: background .1s;
+  text-decoration: none;
+  color: inherit;
+  min-height: 56px;
+}
+.prRow:hover { background: var(--sc-cream-dark); }
+.prRowAlt { background: var(--sc-cream-dark); }
+.prRowAlt:hover { background: var(--sc-cream-mid); }
+.prRowLeft { display: flex; align-items: center; gap: 8px; }
+.prRowAvatar {
+  width: 32px;
+  height: 32px;
+  background: var(--sc-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  color: var(--gold);
+  border: 1.5px solid var(--sc-rule);
+  flex-shrink: 0;
+  position: relative;
+}
+.prRowName { font-size: .9rem; font-weight: 600; color: var(--ink); }
+.prRowSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .52rem;
+  color: var(--ink-lt);
+  margin-top: 2px;
+}
+.prCell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem;
+  text-align: center;
+  color: var(--ink-mid);
+}
+.prAvg { color: var(--ink); font-size: .72rem; }
+.prHcpChip {
+  font-size: .68rem;
+  padding: 3px 6px;
+  border-radius: 2px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+}
+.t1 { background: rgba(46,125,71,.15); color: var(--sc-green-lite); }
+.t2 { background: rgba(0,0,0,.06);     color: var(--ink-mid); }
+.t3 { background: rgba(0,0,0,.04);     color: var(--ink-lt); }
+
+/* ── ALL-TIME STANDINGS ── */
+.standings { background: var(--sc-cream); }
+.standingsThead {
+  display: grid;
+  grid-template-columns: 24px 1fr 32px 32px 40px;
+  padding: 5px 14px;
+  background: var(--sc-green);
+  border-bottom: 2px solid var(--gold);
+  gap: 4px;
+}
+.standingsTh {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .46rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(242,237,227,.55);
+  text-align: center;
+}
+.standingsThPlayer { text-align: left; }
+.standingsRow {
+  display: grid;
+  grid-template-columns: 24px 1fr 32px 32px 40px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--sc-cream);
+  transition: background .1s;
+}
+.standingsRow:hover { background: var(--sc-cream-dark); }
+.standingsRowAlt { background: var(--sc-cream-dark); }
+.standingsRowAlt:hover { background: var(--sc-cream-mid); }
+.standingsPos {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-mid);
+}
+.standingsPosFirst { color: var(--gold); font-size: .95rem; }
+.standingsName { font-size: .74rem; font-weight: 600; color: var(--ink); }
+.standingsMeta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  color: var(--ink-lt);
+  margin-top: 1px;
+}
+.standingsCell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  text-align: center;
+  color: var(--ink-mid);
+}
+.standingsCellWins { color: var(--gold); font-weight: 600; }
+
+.seeMoreRow {
+  display: block;
+  padding: 10px 14px;
+  background: var(--sc-cream-dark);
+  text-align: center;
+  text-decoration: none;
+  border-top: 1px solid var(--sc-cream-mid);
+}
+.seeMoreLink {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .58rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+/* ── RECORDS GRID ── */
+.recordsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--sc-cream-mid);
+}
+.recordsBox {
+  background: var(--sc-cream);
+  padding: 13px 13px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.recordsBoxDk { background: var(--sc-cream-dark); }
+.recordsIco { font-size: 1rem; margin-bottom: 4px; }
+.recordsLbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .48rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-lt);
+  margin-bottom: 4px;
+}
+.recordsVal {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: .04em;
+  color: var(--ink);
+  line-height: 1;
+}
+.recordsValGold  { color: var(--gold); }
+.recordsValGreen { color: #1a6b2a; }
+.recordsDetail {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  color: var(--ink-lt);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* ── TOURNAMENT HERO ── */
+.tourneyHero {
+  background: var(--sc-green);
+  padding: 16px 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.tourneyHero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold);
+}
+.tourneyHeroRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.tourneyYearBig {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: .06em;
+  color: var(--sc-cream);
+  line-height: 1;
+}
+.tourneyNameSub {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  font-style: italic;
+  font-size: .78rem;
+  color: rgba(242,237,227,.55);
+  margin-top: 3px;
+}
+.tourneyLocSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  color: rgba(242,237,227,.4);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  margin-top: 5px;
+}
+.stateBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  display: inline-block;
+}
+.stateBadgeComplete {
+  background: rgba(46,125,71,.25);
+  color: #7acc8a;
+  border: 1px solid rgba(46,125,71,.4);
+}
+.stateBadgeActive {
+  background: rgba(184,150,46,.2);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+.stateBadgeUpcoming {
+  background: rgba(242,237,227,.08);
+  color: rgba(242,237,227,.55);
+  border: 1px solid rgba(242,237,227,.18);
+}
+
+/* ── CHAMPION BANNER ── */
+.champBanner {
+  background: linear-gradient(135deg, rgba(184,150,46,0.15), rgba(184,150,46,0.05));
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+.champBannerTrophy { font-size: 1.6rem; }
+.champBannerLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--gold);
+}
+.champBannerName {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: .04em;
+  color: var(--ink);
+  line-height: 1;
+  margin-top: 2px;
+}
+.champBannerScore {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .56rem;
+  color: var(--ink-mid);
+  margin-top: 3px;
+}
+
+/* ── FINAL STANDINGS ── */
+.fsTable { background: var(--sc-cream); }
+.fsThead {
+  display: grid;
+  grid-template-columns: 28px 1fr 44px 44px 44px;
+  padding: 6px 12px;
+  background: var(--sc-green);
+  border-bottom: 2px solid var(--gold);
+  gap: 4px;
+}
+.fsTh {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .48rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(242,237,227,.55);
+  text-align: center;
+}
+.fsThPlayer { text-align: left; }
+.fsRow {
+  display: grid;
+  grid-template-columns: 28px 1fr 44px 44px 44px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  gap: 4px;
+  background: var(--sc-cream);
+  text-decoration: none;
+  color: inherit;
+}
+.fsRowAlt { background: var(--sc-cream-dark); }
+.fsRowFirst {
+  background: linear-gradient(90deg, rgba(184,150,46,.08) 0%, var(--sc-cream) 70%);
+}
+.fsRowDnf { opacity: .5; }
+.fsPos {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-mid);
+}
+.fsPosGold { color: var(--gold); }
+.fsName { font-size: .76rem; font-weight: 600; color: var(--ink); }
+.fsHcp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .5rem;
+  color: var(--ink-lt);
+  margin-top: 1px;
+}
+.fsCell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  text-align: center;
+  color: var(--ink-mid);
+}
+.fsCellUnder { color: #1a6b2a; font-weight: 600; }
+.fsCellOver  { color: #b83030; }
+.fsDnfSection {
+  background: var(--sc-cream-dark);
+  border-top: 1px solid var(--sc-cream-mid);
+  padding: 6px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .46rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-lt);
+}

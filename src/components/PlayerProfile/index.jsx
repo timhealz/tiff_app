@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { usePlayerProfile } from '../../hooks/usePlayerProfile'
+import { usePlayer } from '../../hooks/usePlayer'
 import s from './PlayerProfile.module.css'
 
 function vsParStr(netTotal, roundsPlayed) {
@@ -26,7 +26,7 @@ function ordinal(n) {
 
 export default function PlayerProfile() {
   const { id }            = useParams()
-  const { data, loading } = usePlayerProfile(id)
+  const { data, loading } = usePlayer(id)
 
   const derived = useMemo(() => {
     if (!data) return null

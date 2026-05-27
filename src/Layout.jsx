@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import { Outlet, NavLink, Link } from 'react-router-dom'
-import { Menu, X, Home, Users, Trophy, User, Settings } from 'lucide-react'
+import { Menu, X, Home, Tv, Trophy, Users, BarChart3, Settings } from 'lucide-react'
 import { usePlayerContext } from './contexts/PlayerContext'
+import { useTournamentState } from './hooks/useTournamentState'
 import s from './Layout.module.css'
 
 export default function Layout() {
-  const { player, tournament, signOut } = usePlayerContext()
+  const { player, signOut } = usePlayerContext()
+  const { data: tState } = useTournamentState()
   const [open, setOpen] = useState(false)
 
-  const meHref = player ? `/players/${player.id}` : '/'
+  const liveActive = !!tState?.active
+  const activeYear = tState?.active?.year
 
   function close() { setOpen(false) }
 
@@ -19,7 +22,7 @@ export default function Layout() {
           <img src="/tiff-logo.png" alt="The Tiff" />
         </Link>
         <div className={s.headerRight}>
-          {tournament?.status === 'active' && (
+          {liveActive && (
             <div className={s.livePill}>
               <div className={s.liveDot} />
               Live
@@ -41,6 +44,12 @@ export default function Layout() {
               Commissioner
             </NavLink>
           )}
+          {player && (
+            <NavLink to={`/players/${player.id}`} className={({ isActive }) => `${s.drawerLink} ${isActive ? s.drawerLinkActive : ''}`} onClick={close}>
+              <Users size={18} strokeWidth={1.75} />
+              My Profile
+            </NavLink>
+          )}
         </nav>
         <button className={s.drawerSignOut} onClick={() => { signOut(); close() }}>
           Sign Out
@@ -54,21 +63,44 @@ export default function Layout() {
       </main>
 
       <nav className={s.nav}>
-        <NavLink to="/" end className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
-          <span className={s.navIconWrap}><Home size={22} strokeWidth={1.75} /></span>
-          <span className={s.navLabel}>Home</span>
+        {liveActive ? (
+          <NavLink
+            to={`/tournaments/${activeYear}`}
+            className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}
+          >
+            <span className={s.navIconWrap}><Tv size={22} strokeWidth={1.75} /></span>
+            <span className={s.navLabel}>Live</span>
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}
+          >
+            <span className={s.navIconWrap}><Home size={22} strokeWidth={1.75} /></span>
+            <span className={s.navLabel}>Home</span>
+          </NavLink>
+        )}
+        <NavLink
+          to="/tournaments"
+          className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}
+        >
+          <span className={s.navIconWrap}><Trophy size={22} strokeWidth={1.75} /></span>
+          <span className={s.navLabel}>Tournaments</span>
         </NavLink>
-        <NavLink to="/players" className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
+        <NavLink
+          to="/players"
+          className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}
+        >
           <span className={s.navIconWrap}><Users size={22} strokeWidth={1.75} /></span>
           <span className={s.navLabel}>Players</span>
         </NavLink>
-        <NavLink to="/history" className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
-          <span className={s.navIconWrap}><Trophy size={22} strokeWidth={1.75} /></span>
-          <span className={s.navLabel}>History</span>
-        </NavLink>
-        <NavLink to={meHref} className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}>
-          <span className={s.navIconWrap}><User size={22} strokeWidth={1.75} /></span>
-          <span className={s.navLabel}>Me</span>
+        <NavLink
+          to="/records"
+          className={({ isActive }) => `${s.navTab} ${isActive ? s.navTabActive : ''}`}
+        >
+          <span className={s.navIconWrap}><BarChart3 size={22} strokeWidth={1.75} /></span>
+          <span className={s.navLabel}>Records</span>
         </NavLink>
       </nav>
     </div>

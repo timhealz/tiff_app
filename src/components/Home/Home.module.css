@@ -1,4 +1,4 @@
-/* ── Shared section header ── */
+/* ── Shared section header (PostTournament still uses this) ── */
 .sectionHdr {
   background: var(--sc-green);
   padding: 6px 14px;
@@ -22,24 +22,12 @@
   letter-spacing: .1em;
 }
 
-/* ── Countdown hero ── */
+/* ── Countdown hero (compact for preview dashboard) ── */
 .countdownHero {
   background: var(--sc-green);
-  padding: 20px 16px 28px;
+  padding: 14px 16px 16px;
   position: relative;
   overflow: hidden;
-}
-.heroWatermark {
-  position: absolute;
-  right: -24px;
-  bottom: 0;
-  height: 88%;
-  width: auto;
-  filter: invert(1);
-  mix-blend-mode: screen;
-  opacity: 0.09;
-  pointer-events: none;
-  user-select: none;
 }
 .countdownHero::before {
   content: '';
@@ -56,436 +44,127 @@
   bottom: 0; left: 0; right: 0; height: 3px;
   background: var(--gold);
 }
+.cdhEyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .54rem;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: rgba(242,237,227,.4);
+  margin-top: 14px;
+  margin-bottom: 6px;
+  position: relative; z-index: 1;
+}
 .cdhTitle {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   letter-spacing: .06em;
-  color: var(--gold);
+  color: var(--sc-cream);
   line-height: .95;
   position: relative; z-index: 1;
 }
 .cdhLocation {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: .58rem;
+  font-size: .54rem;
   color: rgba(242,237,227,.5);
   text-transform: uppercase;
-  letter-spacing: .15em;
-  margin-top: 6px;
-  position: relative; z-index: 1;
-}
-.cdhEyebrow {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .56rem;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  color: rgba(242,237,227,.4);
-  margin-top: 20px;
-  margin-bottom: 8px;
+  letter-spacing: .13em;
+  margin-top: 4px;
   position: relative; z-index: 1;
 }
 .countdownDigits {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: 5px;
   position: relative; z-index: 1;
 }
-
-.fieldToggle {
-  width: 100%;
-  margin-top: 14px;
-  background: rgba(0,0,0,.18);
-  border: none;
-  border-top: 1px solid rgba(184,150,46,.18);
-  padding: 8px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: rgba(242,237,227,.55);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .54rem;
-  text-transform: uppercase;
-  letter-spacing: .14em;
-  cursor: pointer;
-  position: relative; z-index: 1;
-}
-.fieldToggle:hover { background: rgba(0,0,0,.28); }
-
-.fieldChevron {
-  transition: transform .2s ease;
-  flex-shrink: 0;
-}
-.fieldChevronOpen { transform: rotate(180deg); }
 .cdUnit {
   background: rgba(0,0,0,.25);
   border: 1px solid rgba(184,150,46,.2);
-  border-radius: 4px;
-  padding: 8px 4px;
+  border-radius: 3px;
+  padding: 6px 4px;
   text-align: center;
 }
 .cdNum {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   letter-spacing: .04em;
   color: var(--gold);
   line-height: 1;
 }
 .cdLbl {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: .44rem;
+  font-size: .42rem;
   text-transform: uppercase;
   letter-spacing: .1em;
   color: rgba(242,237,227,.35);
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
-/* ── Roster list ── */
+/* ── Roster horizontal scroll ── */
 .rosterStrip {
-  background: var(--sc-cream);
-  border-bottom: 1px solid var(--sc-cream-mid);
-}
-.rosterGrid {
-  display: flex;
-  flex-direction: column;
-}
-.rosterCard {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  border-bottom: 1px solid var(--sc-cream-mid);
-  text-decoration: none;
-  color: inherit;
-  background: var(--sc-cream);
-  transition: background .1s;
-  min-height: 48px;
-}
-.rosterCard:last-child { border-bottom: none; }
-.rosterCard:nth-child(even) { background: var(--sc-cream-dark); }
-.rosterCard:hover { background: var(--sc-cream-mid); }
-.rosterAvatar {
-  width: 34px; height: 34px;
-  background: var(--sc-green);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: .78rem;
-  letter-spacing: .04em;
-  color: var(--gold);
-  border: 1.5px solid var(--sc-rule);
-  flex-shrink: 0;
-  overflow: hidden;
-  position: relative;
-}
-.rosterAvatar.champion { border-color: var(--gold); }
-.rosterFullName {
-  flex: 1;
-  font-size: .88rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-.rosterHcp {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .58rem;
-  color: var(--ink-lt);
-}
-
-/* ── Reigning champion callout ── */
-.champCallout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  background: var(--sc-cream);
-  border-bottom: 2px solid var(--sc-green);
-  text-decoration: none;
-  color: inherit;
-  transition: background .1s;
-}
-.champCallout:hover { background: var(--sc-cream-dark); }
-.champCalloutLeft { flex: 1; }
-.champCalloutLbl {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .48rem;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: rgba(184,150,46,.75);
-  margin-bottom: 4px;
-}
-.champCalloutName {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1.1;
-}
-.champCalloutMeta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .5rem;
-  color: var(--ink-lt);
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  margin-top: 4px;
-}
-.champCalloutRight {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-  flex-shrink: 0;
-  margin-left: 12px;
-}
-.champCalloutScore {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--gold);
-  line-height: 1;
-}
-.champCalloutCta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .48rem;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: var(--ink-lt);
-}
-
-/* ── Championship cards (full-width vertical stack) ── */
-.champCards {
   padding: 12px 14px;
   background: var(--sc-cream-dark);
+  border-bottom: 1px solid var(--sc-cream-mid);
+}
+.rosterScroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.rosterScroll::-webkit-scrollbar { display: none; }
+.rosterEmpty {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  color: var(--ink-lt);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  padding: 8px 4px;
+}
+
+/* ── Tournaments horizontal scroll ── */
+.resultsScrollWrap {
+  padding: 12px 14px 4px;
+  background: var(--sc-cream);
+}
+.resultsScroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.resultsScroll::-webkit-scrollbar { display: none; }
+.seeAllCard {
+  flex-shrink: 0;
+  width: 100px;
+  min-height: 156px;
+  background: rgba(184,150,46,0.08);
+  border: 1px dashed rgba(184,150,46,0.35);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.champCard {
-  background: var(--sc-cream);
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--sc-cream-mid);
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: transform 0.1s;
-}
-.champCard:hover { transform: translateY(-1px); }
-
-.champCardTop {
-  background: var(--sc-green);
-  border-bottom: 2px solid var(--gold);
-  padding: 10px 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  text-decoration: none;
-  color: inherit;
-}
-
-.champCardYear {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: .08em;
   color: var(--gold);
-  line-height: 1;
 }
-
-.champCardTripName {
+.seeAllCardArrow { font-size: 1.4rem; }
+.seeAllCardText {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: .46rem;
-  color: rgba(242,237,227,.4);
+  font-size: .55rem;
   text-transform: uppercase;
   letter-spacing: .1em;
-  margin-top: 3px;
-}
-
-.champCardLocation {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .52rem;
-  color: rgba(242,237,227,.5);
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  text-align: right;
-  white-space: nowrap;
-  margin-left: 8px;
-}
-
-.champCardBody { }
-
-.champCardWinner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px 10px;
-  border-bottom: 1px solid var(--sc-cream-mid);
-}
-
-.champCardWinnerLbl {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .48rem;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: rgba(184,150,46,.7);
-  margin-bottom: 4px;
-}
-
-.champCardWinnerName {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--ink);
-  text-decoration: none;
-  display: block;
-}
-
-.champCardNet {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--gold);
-  letter-spacing: -.01em;
-}
-
-.champCardPodium {
-  padding: 4px 14px 8px;
-}
-
-.champCardPodRow {
-  display: flex;
-  align-items: center;
-  padding: 5px 0;
-  border-bottom: 1px solid var(--sc-cream-mid);
-  gap: 8px;
-}
-.champCardPodRow:last-child { border-bottom: none; }
-
-.champCardPodPos {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .58rem;
-  color: var(--ink-lt);
-  width: 16px;
   text-align: center;
-  flex-shrink: 0;
+  line-height: 1.4;
 }
-
-.champCardPodName {
-  flex: 1;
-  font-size: .82rem;
-  color: var(--ink-mid);
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-decoration: none;
-}
-
-.champCardPodNet {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .72rem;
-  color: var(--ink-lt);
-}
-
-/* ── All-time records grid ── */
-.alltimeGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--sc-cream-mid);
-  border-top: 1px solid var(--sc-cream-mid);
-  border-bottom: 2px solid var(--sc-green);
-}
-.atBox {
-  background: var(--sc-cream);
-  padding: 11px 12px;
-}
-.atBox.dk { background: var(--sc-cream-dark); }
-.atVal {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.6rem;
-  letter-spacing: .04em;
-  color: var(--ink);
-  line-height: 1;
-}
-.atVal.gold  { color: var(--gold); }
-.atVal.green { color: #1a6b2a; }
-.atLbl {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .5rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--ink-lt);
-  margin-top: 3px;
-}
-.atDetail {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .52rem;
-  color: var(--ink-lt);
-  margin-top: 2px;
-  text-decoration: none;
-  display: block;
-}
-
-/* ── All-time standings table ── */
-.alltimeLb { background: var(--sc-cream); }
-.atlbThead {
-  display: grid;
-  grid-template-columns: 24px 1fr 32px 32px 48px;
-  padding: 5px 14px;
-  background: var(--sc-green);
-  border-bottom: 2px solid var(--gold);
-  gap: 4px;
-}
-.atlbTh {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .48rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: rgba(242,237,227,.55);
-  text-align: center;
-}
-.atlbTh:nth-child(2) { text-align: left; }
-.atlbRow {
-  display: grid;
-  grid-template-columns: 24px 1fr 32px 32px 48px;
-  padding: 8px 14px;
-  border-bottom: 1px solid var(--sc-cream-mid);
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  transition: background .1s;
-  text-decoration: none;
-  color: inherit;
-}
-.atlbRow:hover { background: var(--sc-cream-dark); }
-.atlbRow.alt { background: var(--sc-cream-dark); }
-.atlbRow.alt:hover { background: var(--sc-cream-mid); }
-.atlbPos {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .68rem;
-  font-weight: 600;
-  text-align: center;
-  color: var(--ink-mid);
-}
-.atlbPos.p1 { color: var(--gold); }
-.atlbName { font-size: .75rem; font-weight: 600; color: var(--ink); }
-.atlbSub {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .5rem;
-  color: var(--ink-lt);
-  margin-top: 1px;
-}
-.atlbCell {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .68rem;
-  text-align: center;
-  color: var(--ink-mid);
-}
-.atlbCell.wins { color: var(--gold); font-weight: 600; }
 
 /* ─────────────────────────────────────────────
-   POST-TOURNAMENT SCREEN
+   POST-TOURNAMENT SCREEN — unchanged from before
 ───────────────────────────────────────────── */
 
-/* Champion hero */
 .champHero {
   background: var(--sc-green);
   padding: 20px 16px 28px;
@@ -511,7 +190,7 @@
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
+  50%      { transform: translateY(-6px); }
 }
 .champEyebrow {
   font-family: 'IBM Plex Mono', monospace;
@@ -542,7 +221,6 @@
 }
 .champScore strong { color: var(--gold-lt); }
 
-/* Final standings */
 .finalStandings { background: var(--sc-cream); }
 .fsThead {
   display: grid;
@@ -592,7 +270,6 @@
 .fsCell.under { color: #1a6b2a; font-weight: 600; }
 .fsCell.over  { color: #b83030; }
 
-/* Week highlights */
 .wkHighlights {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -632,7 +309,6 @@
   display: block;
 }
 
-/* HCP movement */
 .hcpMoves { padding: 10px 14px 14px; background: var(--sc-cream); }
 .hcpMovesLbl {
   font-family: 'IBM Plex Mono', monospace;
@@ -669,7 +345,6 @@
 .hmDelta.down { color: #1a6b2a; }
 .hmDelta.up   { color: #b83030; }
 
-/* Share button */
 .shareBtnWrap {
   padding: 12px 14px;
   background: var(--sc-cream-dark);
