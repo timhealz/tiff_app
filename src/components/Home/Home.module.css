@@ -38,12 +38,6 @@
     rgba(255,255,255,.018) 28px, rgba(255,255,255,.018) 29px
   );
 }
-.countdownHero::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0; height: 3px;
-  background: var(--gold);
-}
 .cdhEyebrow {
   font-family: 'IBM Plex Mono', monospace;
   font-size: .54rem;
@@ -102,9 +96,10 @@
 
 /* ── Roster horizontal scroll ── */
 .rosterStrip {
-  padding: 12px 14px;
+  padding: 14px 14px 22px;
   background: var(--sc-cream-dark);
-  border-bottom: 1px solid var(--sc-cream-mid);
+  border-bottom: 3px solid var(--gold);
+  margin-bottom: 14px;
 }
 .rosterScroll {
   display: flex;
@@ -150,6 +145,21 @@
   gap: 6px;
   text-decoration: none;
   color: var(--gold);
+}
+.rosterSeeAll {
+  flex-shrink: 0;
+  width: 90px;
+  background: rgba(184,150,46,0.08);
+  border: 1px dashed rgba(184,150,46,0.35);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--gold);
+  align-self: stretch;
 }
 .seeAllCardArrow { font-size: 1.4rem; }
 .seeAllCardText {

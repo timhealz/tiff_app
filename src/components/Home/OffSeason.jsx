@@ -105,17 +105,23 @@ export default function OffSeason({ upcoming }) {
           {sortedField.length === 0 ? (
             <div className={s.rosterEmpty}>No players yet</div>
           ) : (
-            sortedField.map(p => (
-              <PlayerRow
-                key={p.id}
-                variant="avatar"
-                player={{
-                  ...p,
-                  hcp: hcpByPlayer[p.id] ?? null,
-                  isChampion: p.id === reigningChampionId,
-                }}
-              />
-            ))
+            <>
+              {sortedField.map(p => (
+                <PlayerRow
+                  key={p.id}
+                  variant="avatar"
+                  player={{
+                    ...p,
+                    hcp: hcpByPlayer[p.id] ?? null,
+                    isChampion: p.id === reigningChampionId,
+                  }}
+                />
+              ))}
+              <Link to="/players" className={s.rosterSeeAll}>
+                <div className={s.seeAllCardArrow}>→</div>
+                <div className={s.seeAllCardText}>All<br/>players</div>
+              </Link>
+            </>
           )}
         </div>
       </div>
